@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/06 19:52:23 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/06 20:23:46 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ int	file_opener(char *filepath)
 void	init_data(char *filepath, t_data *data)
 {
 	int	fd;
+	char	*line;
 	
 	fd = file_opener(filepath);
-	
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
 }
