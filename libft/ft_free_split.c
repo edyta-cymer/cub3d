@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 16:11:57 by ecymer           ###   ########.fr       */
+/*   Created: 2025/03/08 15:14:00 by ecymer            #+#    #+#             */
+/*   Updated: 2025/03/08 15:15:13 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[])
+void ft_free_split(char **splitted)
 {
-	t_data data;
-	
-	if (argc != 2)
-		error("You can have only one argument", 0);
-	init_data(argv[1], &data);
-	return (0);
+	int	i;
+
+	i = -1;
+	while (splitted[++i])
+		free(splitted[i]);
+	free(splitted);
 }

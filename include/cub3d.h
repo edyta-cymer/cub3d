@@ -6,18 +6,17 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/06 19:02:11 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:14:11 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef CUB3D_H
+#ifndef CUB3D_H
 
 # define CUB3D_H
 
 #include "libft.h"
 #include <fcntl.h>
-
-void	error_handling(char *message, int type);
+#include <stdio.h>
 
 typedef enum id_texture
 {
@@ -36,9 +35,14 @@ typedef struct	s_textures {
 }	t_textures;
 
 typedef struct	s_data {
-	struct		textures;
+	t_textures	textures[6];
 	char		**map;
 }	t_data;
+
+void	error(char *message, int type);
+void	clean_up(t_data *data, int fd);
+int		ft_color_atoi(const char *nptr);
+void	init_data(char *filepath, t_data *data);
 
 #endif
 

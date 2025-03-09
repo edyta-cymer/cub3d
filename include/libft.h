@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 13:36:10 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/02/13 11:57:12 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:15:46 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_bzero(void *s, size_t m);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	ft_free_split(char **splitted);
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd, ssize_t ammount);
 void	ft_putendl_fd(char *s, int fd);
