@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 16:27:04 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 19:44:27 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ typedef enum id_texture
 } t_texture;
 
 typedef struct	s_textures {
-	t_texture	id_texture;
+	t_texture	id_txr;
 	char		*path;
-	int			colors_letter[3];
+	int			rgb_letter[3];
 }	t_textures;
 
 typedef struct	s_data {
-	t_textures	textures[6];
+	t_textures	txr[6];
 	char		**map;
 }	t_data;
 

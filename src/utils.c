@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 19:14:53 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 19:40:57 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	clean_up(t_data *data, int fd)
 
 	i = -1;
 	while (++i <= 5)
-		if (data->textures[i].path)
-			free(data->textures[i].path);
+		if (data->txr[i].path)
+			free(data->txr[i].path);
 	line = get_next_line(fd);
 	while (line)
 	{
