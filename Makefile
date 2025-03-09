@@ -6,6 +6,7 @@ OBJ_DIR     = obj/
 LIBFT_DIR   = libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 CC          = cc
+MINILIBX	= minilibx-linux
 CFLAGS      = -Wall -Werror -Wextra -I include -I $(MINILIBX)
 LDFLAGS     = -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lX11 -lXext -lbsd -lm
 RM          = rm -f
@@ -20,7 +21,7 @@ CYAN        = \033[0;96m
 
 # Sources
 
-SRC_FILES   =  utils.c init_data.c main.c
+SRC_FILES   = init_data.c utils.c  main.c
 SRC         = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ         = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 

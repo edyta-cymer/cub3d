@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 16:14:11 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:27:04 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	error(char *message, int type);
 void	clean_up(t_data *data, int fd);
 int		ft_color_atoi(const char *nptr);
 void	init_data(char *filepath, t_data *data);
+void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
 
 #endif
 

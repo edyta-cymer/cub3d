@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 16:11:21 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 19:38:01 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	file_opener(char *filepath)
 	
 	if (validate_map_format(filepath) != 0)
 		error("Wrong file format", 0);
-	fd = open(filepath, O_WRONLY);
+	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 		error(NULL, 1);
 	return (fd);
@@ -45,7 +45,12 @@ void	init_textures(t_data *data)
 	data->textures[4].id_texture = F;
 	data->textures[5].id_texture = C;
 	while (++i <= 5)
+	{
 		data->textures[i].path = NULL;
+		data->textures[i].colors_letter[0] = -1;
+		data->textures[i].colors_letter[1] = -1;
+		data->textures[i].colors_letter[2] = -1;
+	}
 }
 int	add_path(t_data *data, char **split_line, int fd, char *line)
 {
@@ -55,22 +60,24 @@ int	add_path(t_data *data, char **split_line, int fd, char *line)
 		return (ft_free_split(split_line), -1);
 	if (!split_line[1] || split_line[2])
 		return (ft_free_split(split_line), clean_up(data, fd), \
-		error("Wrong textures in file", 0), 0);
-	if (ft_strcmp(split_line[0], "NO") == 0)
+	free(line), error("Wrong textures in file", 0), 0);
+	if (ft_strcmp(split_line[0], "NO") == 0 && !data->textures[0].path)
 		data->textures[0].path = ft_strdup(split_line[1]);
-	else if (ft_strcmp(split_line[0], "SO") == 0)
+	else if (ft_strcmp(split_line[0], "SO") == 0 && !data->textures[1].path)
 		data->textures[1].path = ft_strdup(split_line[1]);
-	else if (ft_strcmp(split_line[0], "WE") == 0)
+	else if (ft_strcmp(split_line[0], "WE") == 0 && !data->textures[2].path)
 		data->textures[2].path = ft_strdup(split_line[1]);
-	else if (ft_strcmp(split_line[0], "EA") == 0)
+	else if (ft_strcmp(split_line[0], "EA") == 0 && !data->textures[3].path)
 		data->textures[3].path = ft_strdup(split_line[1]);
-	else if (ft_strcmp(split_line[0], 'F') == 0)
+	else if ((ft_strcmp(split_line[0], "F") == 0 && !data->textures[4].path) \
+	|| data->textures[4].colors_letter[0] != -1)
 		ft_handle_colors(data, split_line, fd, line);
-	else if (ft_strcmp(split_line[0], 'C') == 0)
+	else if ((ft_strcmp(split_line[0], "C") == 0 && !data->textures[5].path) \
+	|| data->textures[5].colors_letter[0] != -1)
 		ft_handle_colors(data, split_line, fd, line);
 	else 
 		return (ft_free_split(split_line), clean_up(data, fd), \
-		free(line), error("Wrong id", 0), -1);
+		free(line), error("Wrong id or a duplicate", 0), -1);
 	ft_free_split(split_line);
 	return (0);
 }
@@ -79,8 +86,8 @@ void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 {
 	char	**split_colors;
 	int	i;
-
-	if (ft_strcmp(split_line[0], 'F') == 0)
+	
+	if (ft_strcmp(split_line[0], "F") == 0)
 		i = 4;
 	else 
 		i = 5;

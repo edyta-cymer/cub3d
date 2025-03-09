@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 13:36:10 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/03/08 15:15:46 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 17:30:12 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <stdint.h> 
 # include <stdarg.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
