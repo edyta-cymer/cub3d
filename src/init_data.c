@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 20:08:02 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/09 20:17:22 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	validate_map_format(char *str)
 		return (ft_strcmp(&str[len - 4], ".cub"));
 	return (-1);
 }
+
 int	file_opener(char *filepath)
 {
-	int fd;
-	
+	int	fd;
+
 	if (validate_map_format(filepath) != 0)
 		error("Wrong file format", 0);
 	fd = open(filepath, O_RDONLY);
@@ -52,6 +53,7 @@ void	init_textures(t_data *data)
 		data->txr[i].rgb_letter[2] = -1;
 	}
 }
+
 int	add_single_path(t_data *data, char **split_line, int fd, char *line)
 {
 	if (ft_strcmp(split_line[0], "NO") == 0 && !data->txr[0].path)
@@ -68,7 +70,7 @@ int	add_single_path(t_data *data, char **split_line, int fd, char *line)
 	else if ((ft_strcmp(split_line[0], "C") == 0 && !data->txr[5].path) \
 	|| data->txr[5].rgb_letter[0] != -1)
 		ft_handle_colors(data, split_line, fd, line);
-	else 
+	else
 		return (ft_free_split(split_line), clean_up(data, fd), \
 		free(line), error("Wrong id or a duplicate", 0), -1);
 	return (0);
@@ -91,11 +93,11 @@ int	add_path(t_data *data, char **split_line, int fd, char *line)
 void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 {
 	char	**split_colors;
-	int	i;
-	
+	int		i;
+
 	if (ft_strcmp(split_line[0], "F") == 0)
 		i = 4;
-	else 
+	else
 		i = 5;
 	split_colors = ft_split(split_line[1], ",");
 	if (!split_colors[0] || !split_colors[1] || !split_colors[2] || \
@@ -106,11 +108,11 @@ void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 	data->txr[i].rgb_letter[0] = ft_color_atoi(split_colors[0]);
 	data->txr[i].rgb_letter[1] = ft_color_atoi(split_colors[1]);
 	data->txr[i].rgb_letter[2] = ft_color_atoi(split_colors[2]);
-	if (data->txr[i].rgb_letter[0] > 255
+	if (data->txr[i].rgb_letter[0] > 255 \
 	|| data->txr[i].rgb_letter[1] > 255 \
 	|| data->txr[i].rgb_letter[2] > 255 \
 	|| data->txr[i].rgb_letter[0] < 0 || data->txr[i].rgb_letter[1] < 0 \
-	|| data->txr[i].rgb_letter[2] < 0) 
+	|| data->txr[i].rgb_letter[2] < 0)
 		return (ft_free_split(split_colors), ft_free_split(split_line), \
 			clean_up(data, fd), free(line), error("Wrong color number", 0));
 	ft_free_split(split_colors);
@@ -118,10 +120,10 @@ void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 
 void	init_data(char *filepath, t_data *data)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 	char	**split_line;
-	
+
 	init_textures(data);
 	fd = file_opener(filepath);
 	line = get_next_line(fd);
@@ -129,7 +131,7 @@ void	init_data(char *filepath, t_data *data)
 	{
 		split_line = ft_split(line, " \n");
 		if (add_path(data, split_line, fd, line) == -1)
-			break;
+			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -137,3 +139,4 @@ void	init_data(char *filepath, t_data *data)
 	clean_up(data, fd);
 }
 
+//errory: empty mapa , mapa pierwsza, no colors at all, 
