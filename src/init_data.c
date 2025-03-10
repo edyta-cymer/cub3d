@@ -6,19 +6,19 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 20:17:22 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/10 19:37:35 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	validate_map_format(char *str)
+int	validate_map_format(char *str, char *ext)
 {
 	size_t	len;
 
 	len = ft_strlen(str);
 	if (len >= 4)
-		return (ft_strcmp(&str[len - 4], ".cub"));
+		return (ft_strcmp(&str[len - 4], ext));
 	return (-1);
 }
 
@@ -26,7 +26,7 @@ int	file_opener(char *filepath)
 {
 	int	fd;
 
-	if (validate_map_format(filepath) != 0)
+	if (validate_map_format(filepath, ".cub") != 0)
 		error("Wrong file format", 0);
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
@@ -64,11 +64,11 @@ int	add_single_path(t_data *data, char **split_line, int fd, char *line)
 		return (data->txr[2].path = ft_strdup(split_line[1]), 0);
 	else if (ft_strcmp(split_line[0], "EA") == 0 && !data->txr[3].path)
 		return (data->txr[3].path = ft_strdup(split_line[1]), 0);
-	else if ((ft_strcmp(split_line[0], "F") == 0 && !data->txr[4].path) \
-	|| data->txr[4].rgb_letter[0] != -1)
+	else if ((ft_strcmp(split_line[0], "F") == 0 \
+	&& data->txr[4].rgb_letter[0] == -1))
 		ft_handle_colors(data, split_line, fd, line);
-	else if ((ft_strcmp(split_line[0], "C") == 0 && !data->txr[5].path) \
-	|| data->txr[5].rgb_letter[0] != -1)
+	else if (ft_strcmp(split_line[0], "C") == 0 \
+	&& data->txr[5].rgb_letter[0] == -1)
 		ft_handle_colors(data, split_line, fd, line);
 	else
 		return (ft_free_split(split_line), clean_up(data, fd), \
@@ -135,6 +135,7 @@ void	init_data(char *filepath, t_data *data)
 		free(line);
 		line = get_next_line(fd);
 	}
+	validate_data(data, line, fd);
 	free(line);
 	clean_up(data, fd);
 }
