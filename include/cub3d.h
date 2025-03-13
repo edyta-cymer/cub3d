@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/10 19:27:00 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/13 19:40:50 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_data(char *filepath, t_data *data);
 void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
 int		validate_map_format(char *str, char *ext);
 void	validate_data(t_data *data, char *line, int fd);
+void	create_map(t_data *data, char *line, int fd);
 #endif
 
 
