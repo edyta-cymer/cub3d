@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/13 19:41:44 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/15 00:02:04 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,3 @@ void	init_data(char *filepath, t_data *data)
 	validate_data(data, line, fd);
 	create_map(data, line, fd);
 }
-
-//errory: empty mapa , mapa pierwsza, no colors at all, 
-
