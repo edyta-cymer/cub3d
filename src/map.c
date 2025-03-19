@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:30 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/19 20:38:05 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/20 00:14:34 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ void	create_map(t_data *data, char *line, int fd)
 	close(fd);
 	split_map_lines = ft_split(map_lines, "\n");
 	data->map = split_map_lines;
-	validate_map(data, split_map_lines);
+	validate_map(data);
 }
