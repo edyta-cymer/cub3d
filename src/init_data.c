@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/18 19:59:09 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/19 20:37:34 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_textures(t_data *data)
 	data->txr[3].id_txr = EA;
 	data->txr[4].id_txr = F;
 	data->txr[5].id_txr = C;
+	data->map = NULL;
 	while (++i <= 5)
 	{
 		data->txr[i].path = NULL;

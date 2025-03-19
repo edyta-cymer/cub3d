@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/09 20:19:18 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/19 23:14:33 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	clean_up(t_data *data, int fd)
 	}
 	if (fd != -1)
 		close(fd);
+	if (data->map)
+		ft_free_split(data->map);
 }
 
 int	ft_color_atoi(const char *nptr)

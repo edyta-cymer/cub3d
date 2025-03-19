@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/19 18:57:16 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/20 00:10:06 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,28 @@ void	find_players_pos(t_data *data, char **split_lines)
 void	flood_fill(t_data *data, char **split_lines, int *len, t_vector2 point)
 {
 	if (point.x == 0 || point.y == 0)
-		return (clean_up(data, -1), ft_free_split(split_lines), \
-		free(len), error("Map is not closed", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (split_lines[point.y][point.x] == '0')
 		split_lines[point.y][point.x] = 'F';
 	if (split_lines[point.y][point.x + 1] == '0' && ++point.x)
 		flood_fill(data, split_lines, len, point);
-	else if (ft_strchr("NSEW12DF", split_lines[point.y][point.x + 1]))
-		return (clean_up(data, -1), ft_free_split(split_lines), \
-		free(len), error("Map is not closed", 0));
+	else if (!ft_strchr("NSEW12DF", split_lines[point.y][point.x + 1]))
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (split_lines[point.y][point.x - 1] == '0' && point.x--)
 		flood_fill(data, split_lines, len, point);
-	else if (ft_strchr("NSEW12DF", split_lines[point.y][point.x - 1]))
-		return (clean_up(data, -1), ft_free_split(split_lines), \
-		free(len), error("Map is not closed", 0));
-	if (split_lines[point.y + 1][point.x] == '0' && ++point.x)
+	else if (!ft_strchr("NSEW12DF", split_lines[point.y][point.x - 1]))
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
+	if (len[point.y + 1] >= point.x && split_lines[point.y + 1][point.x] == \
+		'0' && ++point.y)
 		flood_fill(data, split_lines, len, point);
+	else if (len[point.y + 1] < point.x || !ft_strchr("NSEW12DF", \
+			split_lines[point.y + 1][point.x]))
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (split_lines[point.y - 1][point.x] == '0' && point.y--)
 		flood_fill(data, split_lines, len, point);
-
+	else if (len[point.y - 1] < point.x || !ft_strchr("NSEW12DF", \
+			split_lines[point.y + 1][point.x]))
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 }
 
 void	validate_map(t_data *data, char **split_lines)
