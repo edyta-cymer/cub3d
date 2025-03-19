@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/14 23:54:25 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:44:50 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,15 @@ typedef struct	s_textures {
 }	t_textures;
 
 typedef struct s_player {
-	int pos_x;
-	int pos_y;
+	float pos_x;
+	float pos_y;
 	double	orientation;
 } t_player;
+
+typedef struct s_vector2 {
+	int x;
+	int y;
+} t_vector2;
 
 typedef struct	s_data {
 	t_textures	txr[6];

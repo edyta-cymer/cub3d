@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/14 23:59:48 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/19 18:57:16 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	*map_line_len(char **split_lines, int *i)
 	j = 0;
 	while (split_lines[*i])
 		(*i)++;
-	len = malloc(i);
+	len = malloc(*i * sizeof(int));
 	while (j < i)
 	{
 		len[j] = ft_strlen(split_lines[j]);
@@ -68,12 +68,51 @@ void	find_players_pos(t_data *data, char **split_lines)
 	}
 }
 
-void	flood_fill(t_data *data, char **split_lines)
+void	flood_fill(t_data *data, char **split_lines, int *len, t_vector2 point)
+{
+	if (point.x == 0 || point.y == 0)
+		return (clean_up(data, -1), ft_free_split(split_lines), \
+		free(len), error("Map is not closed", 0));
+	if (split_lines[point.y][point.x] == '0')
+		split_lines[point.y][point.x] = 'F';
+	if (split_lines[point.y][point.x + 1] == '0' && ++point.x)
+		flood_fill(data, split_lines, len, point);
+	else if (ft_strchr("NSEW12DF", split_lines[point.y][point.x + 1]))
+		return (clean_up(data, -1), ft_free_split(split_lines), \
+		free(len), error("Map is not closed", 0));
+	if (split_lines[point.y][point.x - 1] == '0' && point.x--)
+		flood_fill(data, split_lines, len, point);
+	else if (ft_strchr("NSEW12DF", split_lines[point.y][point.x - 1]))
+		return (clean_up(data, -1), ft_free_split(split_lines), \
+		free(len), error("Map is not closed", 0));
+	if (split_lines[point.y + 1][point.x] == '0' && ++point.x)
+		flood_fill(data, split_lines, len, point);
+	if (split_lines[point.y - 1][point.x] == '0' && point.y--)
+		flood_fill(data, split_lines, len, point);
+
+}
+
+void	validate_map(t_data *data, char **split_lines)
 {
 	int	i;
 	int	*len;
+	t_vector2 point;
 
 	i = 0;
 	len = map_line_len(split_lines, &i);
 	find_players_pos(data, split_lines);
+	point.x = (int)data->t_player.pos_x;
+	point.y = (int)data->t_player.pos_y;
+	flood_fill(data, split_lines, len, point);
 }
+
+
+
+//111111111
+//10N000000001
+//100000000001
+//100000000001
+//100000000001
+//100000001111
+//111111111
+

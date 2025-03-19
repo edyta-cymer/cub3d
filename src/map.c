@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:30 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/15 00:01:02 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/18 20:52:32 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	create_map(t_data *data, char *line, int fd)
 		line = get_next_line(fd);
 	}
 	validate_chars(data, fd, map_lines);
+	close(fd);
 	split_map_lines = ft_split(map_lines, "\n");
-	flood_fill(data, split_map_lines);
+	validate_map(data, split_map_lines);
 }
