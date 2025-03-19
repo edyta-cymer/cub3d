@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/20 00:14:21 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/20 00:17:35 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,17 @@ void	flood_fill(t_data *data, int *len, t_vector2 point)
 		flood_fill(data, len, point);
 	else if (!ft_strchr("NSEW12DF", data->map[point.y][point.x - 1]))
 		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
-	if (len[point.y + 1] >= point.x && data->map[point.y + 1][point.x] == \
-		'0' && ++point.y)
+	if (len[point.y + 1] >= point.x && \
+		data->map[point.y + 1][point.x] == '0' && ++point.y)
 		flood_fill(data, len, point);
-	else if (len[point.y + 1] < point.x || !ft_strchr("NSEW12DF", \
-			data->map[point.y + 1][point.x]))
+	else if (len[point.y + 1] < point.x || \
+			!ft_strchr("NSEW12DF", data->map[point.y + 1][point.x]))
 		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
-	if (data->map[point.y - 1][point.x] == '0' && point.y--)
+	if (len[point.y - 1] >= point.x && \
+		data->map[point.y - 1][point.x] == '0' && point.y--)
 		flood_fill(data, len, point);
-	else if (len[point.y - 1] < point.x || !ft_strchr("NSEW12DF", \
-			data->map[point.y + 1][point.x]))
+	else if (len[point.y - 1] < point.x || \
+			!ft_strchr("NSEW12DF", data->map[point.y + 1][point.x]))
 		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 }
 
