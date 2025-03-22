@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/20 00:17:35 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/22 18:11:03 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	*map_line_len(char **split_lines, int *i)
+int	*map_line_len(char **split_lines)
 {
 	int	j;
 	int	*len;
+	int	i;
 
+	i = 0;
 	j = 0;
-	while (split_lines[*i])
-		(*i)++;
-	len = malloc(*i * sizeof(int));
+	while (split_lines[i])
+		i++;
+	len = malloc(i * sizeof(int));
 	while (j < i)
 	{
 		len[j] = ft_strlen(split_lines[j]);
-		i++;
 		j++;
 	}
 	return (len);
@@ -32,14 +33,14 @@ int	*map_line_len(char **split_lines, int *i)
 
 void	check_dir(t_data *data, char c)
 {
-	if (c == "N")
-		data->t_player.orientation = degree_to_radian(0);
-	else if (c == "S")
-		data->t_player.orientation = degree_to_radian(180);
-	else if (c == "E")
-		data->t_player.orientation = degree_to_radian(90);
-	else if (c == "W")
-		data->t_player.orientation = degree_to_radian(270);
+	if (c == 'N')
+		data->player.orientation = degree_to_radian(0);
+	else if (c == 'S')
+		data->player.orientation = degree_to_radian(180);
+	else if (c == 'E')
+		data->player.orientation = degree_to_radian(90);
+	else if (c == 'W')
+		data->player.orientation = degree_to_radian(270);
 }
 
 void	find_players_pos(t_data *data, char **split_lines)
@@ -54,12 +55,14 @@ void	find_players_pos(t_data *data, char **split_lines)
 		j = 0;
 		while (split_lines[i][j])
 		{
-			if (split_lines[i][j] == "N" || split_lines[i][j] == "S" \
-			|| split_lines[i][j] == "W" || split_lines[i][j] == "E")
+			if (split_lines[i][j] == 'N' || split_lines[i][j] == 'S' \
+			|| split_lines[i][j] == 'W' || split_lines[i][j] == 'E')
 			{
-				data->t_player.pos_y = i;
-				data->t_player.pos_x = j;
+				data->player.pos_y = i;
+				data->player.pos_x = j;
 				check_dir(data, split_lines[i][j]);
+				data->player.planeX = 0.0;
+				data->player.planeY = 0.66;
 				return ;
 			}
 			j++;
@@ -71,43 +74,42 @@ void	find_players_pos(t_data *data, char **split_lines)
 void	flood_fill(t_data *data, int *len, t_vector2 point)
 {
 	if (point.x == 0 || point.y == 0)
-		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed1", 0));
 	if (data->map[point.y][point.x] == '0')
 		data->map[point.y][point.x] = 'F';
 	if (data->map[point.y][point.x + 1] == '0' && ++point.x)
 		flood_fill(data, len, point);
 	else if (!ft_strchr("NSEW12DF", data->map[point.y][point.x + 1]))
-		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed2", 0));
 	if (data->map[point.y][point.x - 1] == '0' && point.x--)
 		flood_fill(data, len, point);
 	else if (!ft_strchr("NSEW12DF", data->map[point.y][point.x - 1]))
-		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
-	if (len[point.y + 1] >= point.x && \
+		return (clean_up(data, -1), free(len), error("Map is not closed3", 0));
+	if (data->map[point.y + 1] && len[point.y + 1] >= point.x && \
 		data->map[point.y + 1][point.x] == '0' && ++point.y)
 		flood_fill(data, len, point);
-	else if (len[point.y + 1] < point.x || \
+	else if (!data->map[point.y + 1] || len[point.y + 1] < point.x || \
 			!ft_strchr("NSEW12DF", data->map[point.y + 1][point.x]))
-		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed4", 0));
 	if (len[point.y - 1] >= point.x && \
 		data->map[point.y - 1][point.x] == '0' && point.y--)
 		flood_fill(data, len, point);
 	else if (len[point.y - 1] < point.x || \
-			!ft_strchr("NSEW12DF", data->map[point.y + 1][point.x]))
-		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
+			!ft_strchr("NSEW12DF", data->map[point.y - 1][point.x]))
+		return (clean_up(data, -1), free(len), error("Map is not closed5", 0));
 }
 
 void	validate_map(t_data *data)
 {
-	int	i;
 	int	*len;
 	t_vector2 point;
 
-	i = 0;
-	len = map_line_len(data->map, &i);
+	len = map_line_len(data->map);
 	find_players_pos(data, data->map);
-	point.x = (int)data->t_player.pos_x;
-	point.y = (int)data->t_player.pos_y;
+	point.x = (int)data->player.pos_x;
+	point.y = (int)data->player.pos_y;
 	flood_fill(data, len, point);
+	free(len);
 }
 
 

@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/minilibx-linux"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

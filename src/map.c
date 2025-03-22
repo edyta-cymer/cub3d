@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:30 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/20 00:14:34 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/20 19:32:47 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,13 @@ static void	validate_chars(t_data *data, int fd, char *map_lines)
 	j = 0;
 	while (map_lines[i])
 	{
-		if (map_lines[i] == '0' || map_lines[i] == '1' || map_lines[i] == ' ' \
-		|| map_lines[i] == '2' || map_lines[i] == '\n')
+		if (map_lines[i] == '\n' && map_lines[i + 1] == '\n')
+			return (clean_up(data,fd), free(map_lines), \
+			error("Consecutive new lines.", 0));
+		if (ft_strchr("01 2\n", map_lines[i]))
 			i++;
-		else if (map_lines[i] == 'N' || map_lines[i] == 'S' \
-		|| map_lines[i] == 'W' || map_lines[i] == 'E')
-		{
+		else if (ft_strchr("NSWE", map_lines[i]) && ++j)
 			i++;
-			j++;
-		}
 		else
 			return (clean_up(data, fd), free(map_lines), \
 			error("Wrong char in map", 0));
@@ -59,6 +57,7 @@ void	create_map(t_data *data, char *line, int fd)
 	validate_chars(data, fd, map_lines);
 	close(fd);
 	split_map_lines = ft_split(map_lines, "\n");
+	free(map_lines);
 	data->map = split_map_lines;
 	validate_map(data);
 }
