@@ -26,6 +26,7 @@
 
 # define WIN_H 480
 # define WIN_W 640
+# define TILE_SIZE 64
 
 typedef struct	s_image {
 	void	*img;
@@ -73,7 +74,13 @@ typedef struct	s_data {
 	void		*window;
 }	t_data;
 
-
+typedef struct	s_bresenham {
+	t_vector2	current;
+	t_vector2	delta;
+	t_vector2	sign;
+	int			error;
+	int			error2;
+}	t_bresenham;
 
 void	error(char *message, int type);
 void	clean_up(t_data *data, int fd);

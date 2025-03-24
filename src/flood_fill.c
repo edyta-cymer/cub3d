@@ -33,6 +33,9 @@ int	*map_line_len(char **split_lines)
 
 void	check_dir(t_data *data, char c)
 {
+	float	dirX;
+	float	dirY;
+
 	if (c == 'N')
 		data->player.orientation = degree_to_radian(0);
 	else if (c == 'S')
@@ -41,6 +44,10 @@ void	check_dir(t_data *data, char c)
 		data->player.orientation = degree_to_radian(90);
 	else if (c == 'W')
 		data->player.orientation = degree_to_radian(270);
+	dirX = cos(data->player.orientation);
+	dirY = sin(data->player.orientation);
+	data->player.planeX = -0.66 * dirY;
+	data->player.planeY = 0.66 * dirX;
 }
 
 void	find_players_pos(t_data *data, char **split_lines)
@@ -61,8 +68,6 @@ void	find_players_pos(t_data *data, char **split_lines)
 				data->player.pos_y = i;
 				data->player.pos_x = j;
 				check_dir(data, split_lines[i][j]);
-				data->player.planeX = 0.0;
-				data->player.planeY = 0.66;
 				return ;
 			}
 			j++;
