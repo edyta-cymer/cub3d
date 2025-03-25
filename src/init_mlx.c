@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/22 19:58:15 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/25 19:49:13 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2)
 	{
 		my_mlx_pixel_put(&data->img, point1.x, point1.y, 0x00FFFF00);
 		if (point1.x == point2.x && point1.y == point2.y)
-		{
-			printf("XD");
 			break ;
-		}
 		b.error2 = b.error * 2;
 		if (b.error2 > -b.delta.y)
 		{
