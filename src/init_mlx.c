@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/25 19:49:13 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/27 07:38:10 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 	if (x < 0 || x >= WIN_W || y < 0 || y >= WIN_H)
 		return ;
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2)
@@ -78,7 +78,5 @@ void	ft_init_mlx(t_data *data)
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	if (!data->img.addr)
 		return (clean_up(data, -1), error("Problem with mlx_get_data_adr", 0));
-	
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/22 18:11:03 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/27 07:41:38 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	*map_line_len(char **split_lines)
 
 void	check_dir(t_data *data, char c)
 {
-	float	dirX;
-	float	dirY;
+	float	dir_x;
+	float	dir_y;
 
 	if (c == 'N')
 		data->player.orientation = degree_to_radian(0);
@@ -44,10 +44,10 @@ void	check_dir(t_data *data, char c)
 		data->player.orientation = degree_to_radian(90);
 	else if (c == 'W')
 		data->player.orientation = degree_to_radian(270);
-	dirX = cos(data->player.orientation);
-	dirY = sin(data->player.orientation);
-	data->player.planeX = -0.66 * dirY;
-	data->player.planeY = 0.66 * dirX;
+	dir_x = cos(data->player.orientation);
+	dir_y = sin(data->player.orientation);
+	data->player.plane_x = -0.66 * dir_y;
+	data->player.plane_y = 0.66 * dir_x;
 }
 
 void	find_players_pos(t_data *data, char **split_lines)
@@ -106,8 +106,8 @@ void	flood_fill(t_data *data, int *len, t_vector2 point)
 
 void	validate_map(t_data *data)
 {
-	int	*len;
-	t_vector2 point;
+	int			*len;
+	t_vector2	point;
 
 	len = map_line_len(data->map);
 	find_players_pos(data, data->map);
