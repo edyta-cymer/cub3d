@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/27 11:49:18 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:04:47 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #  define M_PI 3.141592653
 # endif
 
-# define WIN_H 480
-# define WIN_W 640
+# define WIN_H 900
+# define WIN_W 1600
 # define TILE_SIZE 64
 
 typedef struct s_image
@@ -92,8 +92,13 @@ typedef struct s_ray
 {
 	float	ray_dir_x;
 	float	ray_dir_y;
-	float	del_ray_x;
-	float	del_ray_y;
+	float	del_dist_x;
+	float	del_dist_y;
+	int		step_x;
+	int		step_y;
+	float	sideDistX;
+	float	sideDistY;
+	int		side;
 }	t_ray;
 
 
@@ -111,5 +116,8 @@ void	create_map(t_data *data, char *line, int fd);
 
 double	degree_to_radian(int degree);
 void	ft_init_mlx(t_data *data);
+void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2);
+
+void	cast_rays(t_data *data);
 
 #endif

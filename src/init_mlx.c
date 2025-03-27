@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/27 07:38:10 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:53:04 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2)
 
 void	ft_init_mlx(t_data *data)
 {
-	int	x;
-
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (clean_up(data, -1), error("Problem with mlx connection.", 0));
@@ -78,5 +76,6 @@ void	ft_init_mlx(t_data *data)
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	if (!data->img.addr)
 		return (clean_up(data, -1), error("Problem with mlx_get_data_adr", 0));
+	cast_rays(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->img.img, 0, 0);
 }

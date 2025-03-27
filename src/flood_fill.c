@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/27 07:41:38 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/27 22:03:16 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ void	check_dir(t_data *data, char c)
 	float	dir_x;
 	float	dir_y;
 
-	if (c == 'N')
+	if (c == 'E')
 		data->player.orientation = degree_to_radian(0);
-	else if (c == 'S')
-		data->player.orientation = degree_to_radian(180);
-	else if (c == 'E')
-		data->player.orientation = degree_to_radian(90);
 	else if (c == 'W')
+		data->player.orientation = degree_to_radian(180);
+	else if (c == 'N')
+		data->player.orientation = degree_to_radian(90);
+	else if (c == 'S')
 		data->player.orientation = degree_to_radian(270);
 	dir_x = cos(data->player.orientation);
 	dir_y = sin(data->player.orientation);
-	data->player.plane_x = -0.66 * dir_y;
-	data->player.plane_y = 0.66 * dir_x;
+	data->player.plane_x = 0.66 * dir_y;
+	data->player.plane_y = -0.66 * dir_x;
 }
 
 void	find_players_pos(t_data *data, char **split_lines)
@@ -65,8 +65,8 @@ void	find_players_pos(t_data *data, char **split_lines)
 			if (split_lines[i][j] == 'N' || split_lines[i][j] == 'S' \
 			|| split_lines[i][j] == 'W' || split_lines[i][j] == 'E')
 			{
-				data->player.pos_y = i;
-				data->player.pos_x = j;
+				data->player.pos_y = i + 0.5;
+				data->player.pos_x = j + 0.5;
 				check_dir(data, split_lines[i][j]);
 				return ;
 			}
