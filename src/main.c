@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/22 16:02:06 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/28 18:56:31 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,9 @@ void manage_keys(t_data *data)
 	float	dir_x;
 	float	dir_y;
 
-	if (data->keys.w)
-	{
-		if(data->map[(int)(data->player.pos_y + sin(data->player.orientation) * 0.1)][(int)(data->player.pos_x + cos(data->player.orientation) * 0.)] != '1')
-		{
-			data->player.pos_x += cos(data->player.orientation) * 0.1;
-			data->player.pos_y += sin(data->player.orientation) * 0.1;
-		}
-	}
-	if (data->keys.s)
-	{
-		if(data->map[(int)(data->player.pos_y - sin(data->player.orientation) * 0.1)][(int)(data->player.pos_x - cos(data->player.orientation) * 0.1)] != '1')
-		{
-			data->player.pos_x -= cos(data->player.orientation) * 0.1;
-			data->player.pos_y -= sin(data->player.orientation) * 0.1;
-		}
-	}
 	if (data->keys.d)
 	{
-		data->player.orientation += degree_to_radian(2);
+		data->player.orientation += degree_to_radian(1) * 0.5;
 		if (data->player.orientation > 2 * M_PI)
 			data->player.orientation -= 2 * M_PI;
 		dir_x = cos(data->player.orientation);
@@ -45,7 +29,7 @@ void manage_keys(t_data *data)
 	}
 	if (data->keys.a)
 	{
-		data->player.orientation -= degree_to_radian(2);
+		data->player.orientation -= degree_to_radian(1) * 0.5;
 		if (data->player.orientation < 0)
 			data->player.orientation += 2 * M_PI;
 		dir_x = cos(data->player.orientation);
@@ -53,7 +37,22 @@ void manage_keys(t_data *data)
 		data->player.plane_x = -0.66 * dir_y;
 		data->player.plane_y = 0.66 * dir_x;
 	}
-	printf("x: %f, y: %f, orientation: %f\n", data->player.pos_x, data->player.pos_y, data->player.orientation);
+	if (data->keys.w)
+	{
+		if(data->map[(int)(data->player.pos_y + sin(data->player.orientation) * 0.3)][(int)(data->player.pos_x + cos(data->player.orientation) * 0.3)] != '1')
+		{
+			data->player.pos_x += cos(data->player.orientation) * 0.01;
+			data->player.pos_y += sin(data->player.orientation) * 0.01;
+		}
+	}
+	if (data->keys.s)
+	{
+		if(data->map[(int)(data->player.pos_y - sin(data->player.orientation) * 0.3)][(int)(data->player.pos_x - cos(data->player.orientation) * 0.3)] != '1')
+		{
+			data->player.pos_x -= cos(data->player.orientation) * 0.01;
+			data->player.pos_y -= sin(data->player.orientation) * 0.01;
+		}
+	}
 }
 
 int	game_loop(void *data)
@@ -85,6 +84,11 @@ int on_press(int keyhook, void* param)
 		data->keys.s = 1;
 	if (keyhook == XK_d)
 		data->keys.d = 1;
+	if (keyhook == XK_Escape)
+	{
+		clean_up(data, -1);
+		exit(EXIT_SUCCESS);
+	}
 	return (0);
 }
 

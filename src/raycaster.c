@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/27 22:01:42 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/28 18:12:02 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x)
 {
 	ray->ray_dir_x = cos(data->player.orientation) + data->player.plane_x * camera_x;
-	ray->ray_dir_y = sin(data->player.orientation) + data->player.plane_y * camera_x;;
+	ray->ray_dir_y = sin(data->player.orientation) + data->player.plane_y * camera_x;
 	ray->step_x = (ray->ray_dir_x > 0) - (ray->ray_dir_x < 0);
 	ray->step_y = (ray->ray_dir_y > 0) - (ray->ray_dir_y < 0);
 	if (ray->ray_dir_x != 0)
