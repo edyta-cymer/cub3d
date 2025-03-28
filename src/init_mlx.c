@@ -37,14 +37,14 @@ void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2)
+void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int color)
 {
 	t_bresenham	b;
 
 	init_bresenham(&b, point1, point2);
 	while (1)
 	{
-		my_mlx_pixel_put(&data->img, point1.x, point1.y, 0x00FFFF00);
+		my_mlx_pixel_put(&data->img, point1.x, point1.y, color);
 		if (point1.x == point2.x && point1.y == point2.y)
 			break ;
 		b.error2 = b.error * 2;

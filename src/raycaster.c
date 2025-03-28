@@ -17,12 +17,12 @@ void	init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x)
 	ray->ray_dir_x = cos(data->player.orientation) + data->player.plane_x * camera_x;
 	ray->ray_dir_y = sin(data->player.orientation) + data->player.plane_y * camera_x;;
 	ray->step_x = (ray->ray_dir_x > 0) - (ray->ray_dir_x < 0);
-	ray->step_y = (ray->ray_dir_y < 0) - (ray->ray_dir_y > 0);
+	ray->step_y = (ray->ray_dir_y > 0) - (ray->ray_dir_y < 0);
 	if (ray->ray_dir_x != 0)
 		ray->del_dist_x = fabs(1 / ray->ray_dir_x);
 	else
 		ray->del_dist_x = __FLT_MAX__;
-	if (ray->del_dist_y != 0)
+	if (ray->ray_dir_y != 0)
 		ray->del_dist_y = fabs(1 / ray->ray_dir_y);
 	else
 		ray->del_dist_y = __FLT_MAX__;
@@ -41,8 +41,10 @@ void	init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x)
 }
 void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 {
-	while (data->map[maps_cords->y][maps_cords->x] != '1')
+	while (1)
 	{
+		if (data->map[maps_cords->y][maps_cords->x] == '1')
+			break ;
 		if (ray->sideDistX < ray->sideDistY)
 		{
 			maps_cords->x += ray->step_x;
@@ -64,6 +66,7 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 	t_vector2	end_wall;
 	float		wallDist;
 	int			lineHeight;
+	int			color;
 	
 	if (ray.side == 0)
 		wallDist = ray.sideDistX - ray.del_dist_x;
@@ -74,7 +77,8 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 	start_wall.x = x;
 	end_wall.y = WIN_H / 2 + lineHeight / 2;
 	end_wall.x = x;
-	mlx_put_line(data, start_wall, end_wall);
+	color = (ray.side == 0) * 0x00FFFF00 + (ray.side == 1) * 0x00FFFF00 / 2; 
+	mlx_put_line(data, start_wall, end_wall, color);
 }
 
 void	cast_rays(t_data *data)

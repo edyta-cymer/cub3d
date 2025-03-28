@@ -19,13 +19,14 @@
 # include <stdio.h>
 # include <math.h>
 # include <mlx.h>
+# include <X11/keysym.h>
 
 # ifndef M_PI
 #  define M_PI 3.141592653
 # endif
 
-# define WIN_H 900
-# define WIN_W 1600
+# define WIN_H 450
+# define WIN_W 800
 # define TILE_SIZE 64
 
 typedef struct s_image
@@ -63,6 +64,14 @@ typedef struct s_player
 	double	plane_y;
 }				t_player;
 
+typedef struct s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}				t_keys;
+
 typedef struct s_vector2
 {
 	int	x;
@@ -74,6 +83,7 @@ typedef struct s_data
 	t_textures	txr[6];
 	char		**map;
 	t_player	player;
+	t_keys		keys;
 	t_image		img;
 	void		*mlx;
 	void		*window;
@@ -116,7 +126,7 @@ void	create_map(t_data *data, char *line, int fd);
 
 double	degree_to_radian(int degree);
 void	ft_init_mlx(t_data *data);
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2);
+void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int color);
 
 void	cast_rays(t_data *data);
 

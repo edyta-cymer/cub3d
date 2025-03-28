@@ -41,13 +41,13 @@ void	check_dir(t_data *data, char c)
 	else if (c == 'W')
 		data->player.orientation = degree_to_radian(180);
 	else if (c == 'N')
-		data->player.orientation = degree_to_radian(90);
-	else if (c == 'S')
 		data->player.orientation = degree_to_radian(270);
+	else if (c == 'S')
+		data->player.orientation = degree_to_radian(90);
 	dir_x = cos(data->player.orientation);
 	dir_y = sin(data->player.orientation);
-	data->player.plane_x = 0.66 * dir_y;
-	data->player.plane_y = -0.66 * dir_x;
+	data->player.plane_x = -0.66 * dir_y;
+	data->player.plane_y = 0.66 * dir_x;
 }
 
 void	find_players_pos(t_data *data, char **split_lines)

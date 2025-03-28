@@ -91,6 +91,14 @@ int	add_path(t_data *data, char **split_line, int fd, char *line)
 	return (0);
 }
 
+void	init_keys(t_data *data)
+{
+	data->keys.w = 0;
+	data->keys.a = 0;
+	data->keys.s = 0;
+	data->keys.d = 0;
+}
+
 void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 {
 	char	**split_colors;
@@ -126,6 +134,7 @@ void	init_data(char *filepath, t_data *data)
 	char	**split_line;
 
 	init_textures(data);
+	init_keys(data);
 	fd = file_opener(filepath);
 	line = get_next_line(fd);
 	while (line)
