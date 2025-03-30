@@ -21,7 +21,7 @@ CYAN        = \033[0;96m
 
 # Sources
 
-SRC_FILES   = init_data.c utils.c validate.c map.c cub_math.c flood_fill.c init_mlx.c raycaster.c main.c
+SRC_FILES   = init_data.c utils.c validate.c map.c cub_math.c flood_fill.c init_mlx.c raycaster.c controls.c main.c
 SRC         = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ         = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 

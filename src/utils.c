@@ -6,11 +6,28 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/28 18:50:52 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/30 19:08:15 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		rgb_to_decimal(t_data *data, t_texture id_txr)
+{
+	int	result;
+
+	if (id_txr == F)
+	{
+		result = (data->txr[4].rgb_letter[0] << 16) + \
+		(data->txr[4].rgb_letter[1] << 8) + data->txr[4].rgb_letter[2];
+	}
+	else
+	{
+		result = (data->txr[5].rgb_letter[0] << 16) + \
+		(data->txr[5].rgb_letter[1] << 8) + data->txr[5].rgb_letter[2];
+	}
+	return (result);
+}
 
 void	clean_up(t_data *data, int fd)
 {
@@ -36,7 +53,10 @@ void	clean_up(t_data *data, int fd)
 	if (data->img.img)
 		mlx_destroy_image(data->mlx, data->img.img);
 	if (data->mlx)
-		free(data->mlx);
+	{
+			mlx_destroy_display(data->mlx);
+			free(data->mlx); // ZOBACZYMY XD
+	}
 }
 
 int	ft_color_atoi(const char *nptr)

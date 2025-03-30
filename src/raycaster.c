@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/28 18:12:02 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/30 20:01:22 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,42 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 	end_wall.x = x;
 	color = (ray.side == 0) * 0x00FFFF00 + (ray.side == 1) * 0x00FFFF00 / 2; 
 	mlx_put_line(data, start_wall, end_wall, color);
+	end_wall.y = 0;
+	color = rgb_to_decimal(data, C);
+	mlx_put_line(data, start_wall, end_wall, color);
+	start_wall.y = WIN_H / 2 + lineHeight / 2;
+	end_wall.y = WIN_H;
+	color = rgb_to_decimal(data, F);
+	mlx_put_line(data, start_wall, end_wall, color);
+	//if (ray.side == 1 && ray.ray_dir_y > 0)
+	//{
+	//	// musimy użyć north tekstury txr[0] - jeśli patrzymy w górę 
+	//}
+	//else if (ray.side == 1 && ray.ray_dir_y < 0)
+	//{
+	//	// musimy użyć south tekstury  txr[1] - jeśli patrzmy w dół
+	//}
+	//else if (ray.side == 0 && ray.ray_dir_x > 0)
+	//{
+	//	// west txr[4] ---->
+	//}
+	//else if (ray.side == 0 && ray.ray_dir_x < 0)
+	//{
+	//	// east txr[3] <-----
+	//}
 }
+
+//void	init_txr(t_data *data)
+//{
+//	data->txr->txr_height = 64;
+//	data->txr->txr_width = 64;
+	
+//	data->txr[0].txr_xpm_image = mlx_xpm_file_to_image(data->mlx, data->txr[0].path, \
+//	&data->txr->txr_width, &data->txr->txr_height);
+//	data->txr[0].txr_addr = mlx_get_data_addr(data->txr[0].txr_xpm_image, \
+//	&data->txr[0].txr_bits_per_pixel, \
+//	&data->txr[0].txr_line_length, &data->txr[0].txr_endian);
+//}
 
 void	cast_rays(t_data *data)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/19 20:37:34 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:16:23 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	init_textures(t_data *data)
 	data->txr[4].id_txr = F;
 	data->txr[5].id_txr = C;
 	data->map = NULL;
+	data->window = NULL;
+	data->mlx = NULL;
+	data->img.img = NULL;
 	while (++i <= 5)
 	{
 		data->txr[i].path = NULL;
@@ -74,6 +77,7 @@ int	add_single_path(t_data *data, char **split_line, int fd, char *line)
 	else
 		return (ft_free_split(split_line), clean_up(data, fd), \
 		free(line), error("Wrong id or a duplicate", 0), -1);
+	
 	return (0);
 }
 

@@ -6,54 +6,11 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/28 18:56:31 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/30 17:05:40 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void manage_keys(t_data *data)
-{
-	float	dir_x;
-	float	dir_y;
-
-	if (data->keys.d)
-	{
-		data->player.orientation += degree_to_radian(1) * 0.5;
-		if (data->player.orientation > 2 * M_PI)
-			data->player.orientation -= 2 * M_PI;
-		dir_x = cos(data->player.orientation);
-		dir_y = sin(data->player.orientation);
-		data->player.plane_x = -0.66 * dir_y;
-		data->player.plane_y = 0.66 * dir_x;
-	}
-	if (data->keys.a)
-	{
-		data->player.orientation -= degree_to_radian(1) * 0.5;
-		if (data->player.orientation < 0)
-			data->player.orientation += 2 * M_PI;
-		dir_x = cos(data->player.orientation);
-		dir_y = sin(data->player.orientation);
-		data->player.plane_x = -0.66 * dir_y;
-		data->player.plane_y = 0.66 * dir_x;
-	}
-	if (data->keys.w)
-	{
-		if(data->map[(int)(data->player.pos_y + sin(data->player.orientation) * 0.3)][(int)(data->player.pos_x + cos(data->player.orientation) * 0.3)] != '1')
-		{
-			data->player.pos_x += cos(data->player.orientation) * 0.01;
-			data->player.pos_y += sin(data->player.orientation) * 0.01;
-		}
-	}
-	if (data->keys.s)
-	{
-		if(data->map[(int)(data->player.pos_y - sin(data->player.orientation) * 0.3)][(int)(data->player.pos_x - cos(data->player.orientation) * 0.3)] != '1')
-		{
-			data->player.pos_x -= cos(data->player.orientation) * 0.01;
-			data->player.pos_y -= sin(data->player.orientation) * 0.01;
-		}
-	}
-}
 
 int	game_loop(void *data)
 {
@@ -71,14 +28,14 @@ int	game_loop(void *data)
 	return (0);
 }
 
-int on_press(int keyhook, void* param)
+int	on_press(int keyhook, void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
 	if (keyhook == XK_w)
 		data->keys.w = 1;
-	if (keyhook == XK_a)	
+	if (keyhook == XK_a)
 		data->keys.a = 1;
 	if (keyhook == XK_s)
 		data->keys.s = 1;
@@ -92,20 +49,29 @@ int on_press(int keyhook, void* param)
 	return (0);
 }
 
-int on_release(int keyhook, void* param)
+int	on_release(int keyhook, void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
 	if (keyhook == XK_w)
 		data->keys.w = 0;
-	if (keyhook == XK_a)	
+	if (keyhook == XK_a)
 		data->keys.a = 0;
 	if (keyhook == XK_s)
 		data->keys.s = 0;
 	if (keyhook == XK_d)
 		data->keys.d = 0;
 	return (0);
+}
+
+int	close_window(void *param)
+{
+	t_data	*data;
+
+	data = (t_data *)param;
+	clean_up(data, -1);
+	exit(EXIT_SUCCESS);
 }
 
 int	main(int argc, char *argv[])
@@ -116,8 +82,9 @@ int	main(int argc, char *argv[])
 		error("You can have only one argument", 0);
 	init_data(argv[1], &data);
 	ft_init_mlx(&data);
-	mlx_hook(data.window, 2, 1L<<0, on_press, &data);
-	mlx_hook(data.window, 3, 1L<<1, on_release, &data);
+	mlx_hook(data.window, 2, 1L << 0, on_press, &data);
+	mlx_hook(data.window, 3, 1L << 1, on_release, &data);
+	mlx_hook(data.window, 17, 0, close_window, &data);
 	mlx_loop_hook(data.mlx, &game_loop, &data);
 	mlx_loop(data.mlx);
 	clean_up(&data, -1);

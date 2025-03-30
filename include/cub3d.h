@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/28 18:08:43 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/30 20:01:52 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ typedef struct s_textures
 	t_texture	id_txr;
 	char		*path;
 	int			rgb_letter[3];
+	//void		*txr_xpm_image;
+	//int			txr_height;
+	//int			txr_width;
+	//char		*txr_addr;
+	//int			txr_bits_per_pixel;
+	//int			txr_line_length;
+	//int			txr_endian;
 }	t_textures;
 
 typedef struct s_player
@@ -116,6 +123,7 @@ void	error(char *message, int type);
 void	clean_up(t_data *data, int fd);
 
 int		ft_color_atoi(const char *nptr);
+int		rgb_to_decimal(t_data *data, t_texture id_txr);
 void	init_data(char *filepath, t_data *data);
 void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
 
@@ -129,5 +137,6 @@ void	ft_init_mlx(t_data *data);
 void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int color);
 
 void	cast_rays(t_data *data);
+void	manage_keys(t_data *data);
 
 #endif
