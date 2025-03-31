@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 19:08:15 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:22:51 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ int		rgb_to_decimal(t_data *data, t_texture id_txr)
 		(data->txr[5].rgb_letter[1] << 8) + data->txr[5].rgb_letter[2];
 	}
 	return (result);
+}
+
+void	clear_images(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
+	while (++i <= 3)
+		mlx_destroy_image(data->mlx, data->txr[i].image.img);
 }
 
 void	clean_up(t_data *data, int fd)
@@ -50,12 +61,11 @@ void	clean_up(t_data *data, int fd)
 		ft_free_split(data->map);
 	if (data->window)
 		mlx_destroy_window(data->mlx, data->window);
-	if (data->img.img)
-		mlx_destroy_image(data->mlx, data->img.img);
+	clear_images(data);
 	if (data->mlx)
 	{
-			mlx_destroy_display(data->mlx);
-			free(data->mlx); // ZOBACZYMY XD
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 17:05:40 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:21:24 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,9 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		error("You can have only one argument", 0);
+	data.mlx = mlx_init();
+	if (!data.mlx)
+		return (clean_up(&data, -1), error("Problem with mlx connection.", 0), 0);
 	init_data(argv[1], &data);
 	ft_init_mlx(&data);
 	mlx_hook(data.window, 2, 1L << 0, on_press, &data);

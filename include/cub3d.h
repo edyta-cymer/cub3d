@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 20:01:52 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 00:58:15 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #  define M_PI 3.141592653
 # endif
 
-# define WIN_H 900
-# define WIN_W 1600
+# define WIN_H 8
+# define WIN_W 16
 # define TILE_SIZE 64
 
 typedef struct s_image
@@ -53,13 +53,9 @@ typedef struct s_textures
 	t_texture	id_txr;
 	char		*path;
 	int			rgb_letter[3];
-	//void		*txr_xpm_image;
-	//int			txr_height;
-	//int			txr_width;
-	//char		*txr_addr;
-	//int			txr_bits_per_pixel;
-	//int			txr_line_length;
-	//int			txr_endian;
+	t_image		image;
+	int			txr_width;
+	int			txr_height;
 }	t_textures;
 
 typedef struct s_player
@@ -116,6 +112,9 @@ typedef struct s_ray
 	float	sideDistX;
 	float	sideDistY;
 	int		side;
+	float	wallDist;
+	int		color;
+	int		texture_x;
 }	t_ray;
 
 
@@ -134,7 +133,8 @@ void	create_map(t_data *data, char *line, int fd);
 
 double	degree_to_radian(int degree);
 void	ft_init_mlx(t_data *data);
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int color);
+void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
+	t_ray ray);
 
 void	cast_rays(t_data *data);
 void	manage_keys(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 20:01:22 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 00:54:50 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,62 +59,71 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 		}
 	}
 }
+int	init_txr_x(t_data *data, t_ray ray, float wallX)
+{
+	int		texture_x;
+
+	if (ray.side == 0)
+	{
+		if (ray.ray_dir_x < 0)
+			texture_x = (wallX * data->txr[2].txr_width);
+		else
+		{
+			texture_x = (wallX * data->txr[3].txr_width);
+			texture_x = data->txr[3].txr_width - texture_x - 1;
+		}
+	}
+	else
+	{
+		if (ray.ray_dir_y < 0)
+		{
+			texture_x = (wallX * data->txr[1].txr_width);
+			texture_x = data->txr[1].txr_width - texture_x - 1;
+		}
+		else
+			texture_x = (wallX * data->txr[0].txr_width);
+	}
+	return (texture_x);
+}
+
+void	draw_texture(t_data *data, t_ray ray, t_vector2 point1, t_vector2 point2)
+{
+	float	wallX;
+	
+	if (ray.side == 0)
+		wallX = data->player.pos_y + ray.wallDist * ray.ray_dir_y;
+	else 
+		wallX = data->player.pos_x + ray.wallDist * ray.ray_dir_x;
+	wallX -= floor(wallX);
+	ray.texture_x = init_txr_x(data, ray, wallX);
+	mlx_put_line(data, point1, point2, ray);
+}
 
 void	draw_wall(t_data *data, t_ray ray, int x)
 {
 	t_vector2	start_wall;
 	t_vector2	end_wall;
-	float		wallDist;
 	int			lineHeight;
-	int			color;
 	
 	if (ray.side == 0)
-		wallDist = ray.sideDistX - ray.del_dist_x;
+		ray.wallDist = ray.sideDistX - ray.del_dist_x;
 	else
-		wallDist = ray.sideDistY - ray.del_dist_y;
-	lineHeight = WIN_H / wallDist;
+		ray.wallDist = ray.sideDistY - ray.del_dist_y;
+	lineHeight = WIN_H / ray.wallDist;
 	start_wall.y = WIN_H / 2 - lineHeight / 2;
 	start_wall.x = x;
 	end_wall.y = WIN_H / 2 + lineHeight / 2;
 	end_wall.x = x;
-	color = (ray.side == 0) * 0x00FFFF00 + (ray.side == 1) * 0x00FFFF00 / 2; 
-	mlx_put_line(data, start_wall, end_wall, color);
+	ray.color = -1;
+	draw_texture(data, ray, start_wall, end_wall);
 	end_wall.y = 0;
-	color = rgb_to_decimal(data, C);
-	mlx_put_line(data, start_wall, end_wall, color);
+	ray.color = rgb_to_decimal(data, C);
+	mlx_put_line(data, start_wall, end_wall, ray);
 	start_wall.y = WIN_H / 2 + lineHeight / 2;
 	end_wall.y = WIN_H;
-	color = rgb_to_decimal(data, F);
-	mlx_put_line(data, start_wall, end_wall, color);
-	//if (ray.side == 1 && ray.ray_dir_y > 0)
-	//{
-	//	// musimy użyć north tekstury txr[0] - jeśli patrzymy w górę 
-	//}
-	//else if (ray.side == 1 && ray.ray_dir_y < 0)
-	//{
-	//	// musimy użyć south tekstury  txr[1] - jeśli patrzmy w dół
-	//}
-	//else if (ray.side == 0 && ray.ray_dir_x > 0)
-	//{
-	//	// west txr[4] ---->
-	//}
-	//else if (ray.side == 0 && ray.ray_dir_x < 0)
-	//{
-	//	// east txr[3] <-----
-	//}
+	ray.color = rgb_to_decimal(data, F);
+	mlx_put_line(data, start_wall, end_wall, ray);
 }
-
-//void	init_txr(t_data *data)
-//{
-//	data->txr->txr_height = 64;
-//	data->txr->txr_width = 64;
-	
-//	data->txr[0].txr_xpm_image = mlx_xpm_file_to_image(data->mlx, data->txr[0].path, \
-//	&data->txr->txr_width, &data->txr->txr_height);
-//	data->txr[0].txr_addr = mlx_get_data_addr(data->txr[0].txr_xpm_image, \
-//	&data->txr[0].txr_bits_per_pixel, \
-//	&data->txr[0].txr_line_length, &data->txr[0].txr_endian);
-//}
 
 void	cast_rays(t_data *data)
 {

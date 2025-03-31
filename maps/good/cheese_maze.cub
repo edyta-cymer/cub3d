@@ -1,7 +1,7 @@
-NO textures/bluestone.xpm
+NO textures/colorstone.xpm
 SO textures/colorstone.xpm
-WE textures/barrel.xpm
-EA textures/wall0.xpm
+WE textures/colorstone.xpm
+EA textures/colorstone.xpm
 
 F 164,169,20
 C 153,204,255

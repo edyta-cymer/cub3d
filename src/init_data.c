@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 18:16:23 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:20:09 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	init_textures(t_data *data)
 	data->txr[5].id_txr = C;
 	data->map = NULL;
 	data->window = NULL;
-	data->mlx = NULL;
 	data->img.img = NULL;
 	while (++i <= 5)
 	{
