@@ -6,19 +6,14 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:05:23 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/30 17:12:36 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 20:20:07 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	manage_keys(t_data *data)
+void	manage_d_a_keys(t_data *data, float dir_x, float dir_y)
 {
-	float	dir_x;
-	float	dir_y;
-
-	dir_x = cos(data->player.orientation);
-	dir_y = sin(data->player.orientation);
 	if (data->keys.d)
 	{
 		data->player.orientation += degree_to_radian(1) * 0.5;
@@ -35,6 +30,10 @@ void	manage_keys(t_data *data)
 		data->player.plane_x = -0.66 * dir_y;
 		data->player.plane_y = 0.66 * dir_x;
 	}
+}
+
+void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
+{
 	if (data->keys.w)
 	{
 		if (data->map[(int)(data->player.pos_y + dir_y * 0.3)] \
@@ -53,4 +52,15 @@ void	manage_keys(t_data *data)
 			data->player.pos_y -= dir_y * 0.01;
 		}
 	}
+}
+
+void	manage_keys(t_data *data)
+{
+	float	dir_x;
+	float	dir_y;
+
+	dir_x = cos(data->player.orientation);
+	dir_y = sin(data->player.orientation);
+	manage_d_a_keys(data, dir_x, dir_y);
+	manage_w_s_keys(data, dir_x, dir_y);
 }

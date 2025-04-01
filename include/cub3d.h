@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 00:58:15 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 23:01:47 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 #  define M_PI 3.141592653
 # endif
 
-# define WIN_H 8
-# define WIN_W 16
+# define WIN_H 600
+# define WIN_W 800
 # define TILE_SIZE 64
 
 typedef struct s_image
@@ -94,11 +94,15 @@ typedef struct s_data
 
 typedef struct s_bresenham
 {
-	t_vector2	current;
-	t_vector2	delta;
-	t_vector2	sign;
-	int			error;
-	int			error2;
+	t_vector2		current;
+	t_vector2		delta;
+	t_vector2		sign;
+	int				error;
+	int				error2;
+	int				line_height;
+	int				texture_id;
+	int				color2;
+	int				y_screen;
 }	t_bresenham;
 
 typedef struct s_ray
@@ -115,28 +119,40 @@ typedef struct s_ray
 	float	wallDist;
 	int		color;
 	int		texture_x;
+	int		texture_y;
 }	t_ray;
 
 
-void	error(char *message, int type);
-void	clean_up(t_data *data, int fd);
+void			error(char *message, int type);
+void			clean_up(t_data *data, int fd);
 
-int		ft_color_atoi(const char *nptr);
-int		rgb_to_decimal(t_data *data, t_texture id_txr);
-void	init_data(char *filepath, t_data *data);
-void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
+int				ft_color_atoi(const char *nptr);
+int				rgb_to_decimal(t_data *data, t_texture id_txr);
+void			init_data(char *filepath, t_data *data);
+void			ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
+int				add_path(t_data *data, char **split_line, int fd, char *line);
+void			init_textures(t_data *data);
 
-int		validate_map_format(char *str, char *ext);
-void	validate_map(t_data *data);
-void	validate_data(t_data *data, char *line, int fd);
-void	create_map(t_data *data, char *line, int fd);
+int				validate_map_format(char *str, char *ext);
+void			validate_map(t_data *data);
+void			validate_data(t_data *data, char *line, int fd);
+void			create_map(t_data *data, char *line, int fd);
 
-double	degree_to_radian(int degree);
-void	ft_init_mlx(t_data *data);
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
-	t_ray ray);
+double			degree_to_radian(int degree);
+void			ft_init_mlx(t_data *data);
+void			mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
+				t_ray ray);
 
-void	cast_rays(t_data *data);
-void	manage_keys(t_data *data);
+void			cast_rays(t_data *data);
+void			manage_keys(t_data *data);void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
+int				check_texture_id(t_ray *ray, int texture_id);
+unsigned int	get_pixel_color(t_image data, int x, int y);
+
+void			draw_wall(t_data *data, t_ray ray, int x);
+void			draw_texture(t_data *data, t_ray ray, t_vector2 point1, \
+				t_vector2 point2);
+int				init_txr_x(t_data *data, t_ray ray, float wallX);
+void			init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x);
+void			count_ray_dir(t_ray *ray, t_data *data, float camera_x);
 
 #endif

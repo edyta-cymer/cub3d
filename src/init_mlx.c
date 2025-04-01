@@ -6,26 +6,11 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 00:54:58 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 21:32:49 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2)
-{
-	b->delta.x = abs(point2.x - point1.x);
-	b->delta.y = abs(point2.y - point1.y);
-	if (point1.x < point2.x)
-		b->sign.x = 1;
-	else
-		b->sign.x = -1;
-	if (point1.y < point2.y)
-		b->sign.y = 1;
-	else
-		b->sign.y = -1;
-	b->error = b->delta.x - b->delta.y;
-}
 
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 {
@@ -47,53 +32,23 @@ unsigned int	get_pixel_color(t_image data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
-	t_ray ray)
+int	check_texture_id(t_ray *ray, int texture_id)
 {
-	t_bresenham	b;
-	int			y_screen;
-	int			line_height;
-	int			texture_y;
-	int			texture_id;
-	unsigned int color2;
-	
-	line_height = WIN_H / ray.wallDist;
-	init_bresenham(&b, point1, point2);
-	y_screen = point1.y;
-	color2 = ray.color;
-	if (ray.side == 0)
+	if (ray->side == 0)
 	{
-		if (ray.ray_dir_x < 0)
+		if (ray->ray_dir_x < 0)
 			texture_id = 2;
 		else
 			texture_id = 3;
 	}
 	else
 	{
-		if (ray.ray_dir_y < 0)
+		if (ray->side < 0)
 			texture_id = 1;
 		else
 			texture_id = 0;
 	}
-	while (1)
-	{
-		if (ray.color == -1)
-		{
-			texture_y = (y_screen - point1.y) * data->txr[texture_id].txr_height / line_height;
-			color2 = get_pixel_color(data->txr[texture_id].image, ray.texture_x, texture_y);
-			if (ray.side == 1)
-				color2 /= 2;
-		}
-		my_mlx_pixel_put(&data->img, point1.x, y_screen, color2);
-		if (y_screen == point2.y)
-			break ;
-		b.error2 = b.error * 2;
-		if (b.error2 < b.delta.x)
-		{
-			b.error += b.delta.x;
-			y_screen += b.sign.y;
-		}
-	}
+	return (texture_id);
 }
 
 void	ft_init_mlx(t_data *data)

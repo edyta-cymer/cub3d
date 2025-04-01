@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:30 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/20 19:32:47 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 21:34:28 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	validate_chars(t_data *data, int fd, char *map_lines)
 	while (map_lines[i])
 	{
 		if (map_lines[i] == '\n' && map_lines[i + 1] == '\n')
-			return (clean_up(data,fd), free(map_lines), \
+			return (clean_up(data, fd), free(map_lines), \
 			error("Consecutive new lines.", 0));
 		if (ft_strchr("01 2\n", map_lines[i]))
 			i++;

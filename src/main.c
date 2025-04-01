@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/31 21:21:24 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 20:54:38 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int	game_loop(void *data)
 	mlx_destroy_image(game_data->mlx, game_data->img.img);
 	game_data->img.img = mlx_new_image(game_data->mlx, WIN_W, WIN_H);
 	game_data->img.addr = mlx_get_data_addr(game_data->img.img, \
-		&game_data->img.bits_per_pixel, &game_data->img.line_length, &game_data->img.endian);
+		&game_data->img.bits_per_pixel, \
+		&game_data->img.line_length, &game_data->img.endian);
 	cast_rays(game_data);
 	mlx_clear_window(game_data->mlx, game_data->window);
-	mlx_put_image_to_window(game_data->mlx, game_data->window, game_data->img.img, 0, 0);
+	mlx_put_image_to_window(game_data->mlx, \
+	game_data->window, game_data->img.img, 0, 0);
 	return (0);
 }
 
@@ -82,7 +84,8 @@ int	main(int argc, char *argv[])
 		error("You can have only one argument", 0);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		return (clean_up(&data, -1), error("Problem with mlx connection.", 0), 0);
+		return (clean_up(&data, -1), \
+		error("Problem with mlx connection.", 0), 0);
 	init_data(argv[1], &data);
 	ft_init_mlx(&data);
 	mlx_hook(data.window, 2, 1L << 0, on_press, &data);

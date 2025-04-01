@@ -6,13 +6,13 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/31 21:22:51 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 22:09:16 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		rgb_to_decimal(t_data *data, t_texture id_txr)
+int	rgb_to_decimal(t_data *data, t_texture id_txr)
 {
 	int	result;
 
@@ -37,7 +37,8 @@ void	clear_images(t_data *data)
 	if (data->img.img)
 		mlx_destroy_image(data->mlx, data->img.img);
 	while (++i <= 3)
-		mlx_destroy_image(data->mlx, data->txr[i].image.img);
+		if (data->txr[i].image.img != NULL)
+			mlx_destroy_image(data->mlx, data->txr[i].image.img);
 }
 
 void	clean_up(t_data *data, int fd)
@@ -98,3 +99,4 @@ void	error(char *message, int type)
 		exit(EXIT_FAILURE);
 	}
 }
+

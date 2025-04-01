@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/03/27 22:03:16 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 22:56:23 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,26 @@ void	flood_fill(t_data *data, int *len, t_vector2 point)
 		return (clean_up(data, -1), free(len), error("Map is not closed5", 0));
 }
 
+void	is_map_playable(t_data *data, char **split_lines)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (split_lines[i])
+	{
+		j = 0;
+		while (split_lines[i][j])
+		{
+			if (split_lines[i][j] == 0)
+				return (clean_up(data, -1), error("Map is not playable", 0));
+			j++;
+		}
+		i++;
+	}
+}
+
 void	validate_map(t_data *data)
 {
 	int			*len;
@@ -114,16 +134,6 @@ void	validate_map(t_data *data)
 	point.x = (int)data->player.pos_x;
 	point.y = (int)data->player.pos_y;
 	flood_fill(data, len, point);
+	is_map_playable(data, data->map);
 	free(len);
 }
-
-
-
-//111111111
-//10N000000001
-//100000000001
-//100000000001
-//100000000001
-//100000001111
-//111111111
-
