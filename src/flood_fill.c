@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 22:56:23 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/01 23:40:26 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	find_players_pos(t_data *data, char **split_lines)
 
 void	flood_fill(t_data *data, int *len, t_vector2 point)
 {
-	if (point.x == 0 || point.y == 0)
+	printf("XD");
+	if (point.x == 0 || point.y == 0 || point.x - 2 == len[point.y])
 		return (clean_up(data, -1), free(len), error("Map is not closed1", 0));
 	if (data->map[point.y][point.x] == '0')
 		data->map[point.y][point.x] = 'F';
@@ -116,7 +117,7 @@ void	is_map_playable(t_data *data, char **split_lines)
 		j = 0;
 		while (split_lines[i][j])
 		{
-			if (split_lines[i][j] == 0)
+			if (split_lines[i][j] == '0')
 				return (clean_up(data, -1), error("Map is not playable", 0));
 			j++;
 		}
@@ -134,6 +135,6 @@ void	validate_map(t_data *data)
 	point.x = (int)data->player.pos_x;
 	point.y = (int)data->player.pos_y;
 	flood_fill(data, len, point);
-	is_map_playable(data, data->map);
+	//is_map_playable(data, data->map);
 	free(len);
 }
