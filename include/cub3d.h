@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 20:41:16 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 22:47:42 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 	t_image		img;
 	void		*mlx;
 	void		*window;
+	int			proportions;
 }	t_data;
 
 typedef struct s_bresenham
@@ -137,6 +138,7 @@ int				validate_map_format(char *str, char *ext);
 void			validate_map(t_data *data);
 void			validate_data(t_data *data, char *line, int fd);
 void			create_map(t_data *data, char *line, int fd);
+void			calc_proportions(t_data *data);
 
 double			degree_to_radian(int degree);
 void			ft_init_mlx(t_data *data);
@@ -156,4 +158,5 @@ void			init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x);
 void			count_ray_dir(t_ray *ray, t_data *data, float camera_x);
 void			mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr);
 void			draw_square(t_data *data, t_vector2 start_point, int color, int size);
+void			draw_map(t_data *data, t_vector2 start_point);
 #endif

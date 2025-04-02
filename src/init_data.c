@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 18:30:32 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 22:48:10 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	init_data(char *filepath, t_data *data)
 	}
 	validate_data(data, line, fd);
 	create_map(data, line, fd);
+	calc_proportions(data);
 }
