@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 21:53:24 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 23:40:26 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 18:38:02 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,30 @@ void	find_players_pos(t_data *data, char **split_lines)
 
 void	flood_fill(t_data *data, int *len, t_vector2 point)
 {
-	printf("XD");
-	if (point.x == 0 || point.y == 0 || point.x - 2 == len[point.y])
-		return (clean_up(data, -1), free(len), error("Map is not closed1", 0));
+	if (point.x == 0 || point.y == 0 || point.x + 1 == len[point.y])
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (data->map[point.y][point.x] == '0')
 		data->map[point.y][point.x] = 'F';
 	if (data->map[point.y][point.x + 1] == '0' && ++point.x)
 		flood_fill(data, len, point);
 	else if (!ft_strchr("NSEW12DF", data->map[point.y][point.x + 1]))
-		return (clean_up(data, -1), free(len), error("Map is not closed2", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (data->map[point.y][point.x - 1] == '0' && point.x--)
 		flood_fill(data, len, point);
 	else if (!ft_strchr("NSEW12DF", data->map[point.y][point.x - 1]))
-		return (clean_up(data, -1), free(len), error("Map is not closed3", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (data->map[point.y + 1] && len[point.y + 1] >= point.x && \
 		data->map[point.y + 1][point.x] == '0' && ++point.y)
 		flood_fill(data, len, point);
 	else if (!data->map[point.y + 1] || len[point.y + 1] < point.x || \
 			!ft_strchr("NSEW12DF", data->map[point.y + 1][point.x]))
-		return (clean_up(data, -1), free(len), error("Map is not closed4", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 	if (len[point.y - 1] >= point.x && \
 		data->map[point.y - 1][point.x] == '0' && point.y--)
 		flood_fill(data, len, point);
 	else if (len[point.y - 1] < point.x || \
 			!ft_strchr("NSEW12DF", data->map[point.y - 1][point.x]))
-		return (clean_up(data, -1), free(len), error("Map is not closed5", 0));
+		return (clean_up(data, -1), free(len), error("Map is not closed", 0));
 }
 
 void	is_map_playable(t_data *data, char **split_lines)
@@ -135,6 +134,6 @@ void	validate_map(t_data *data)
 	point.x = (int)data->player.pos_x;
 	point.y = (int)data->player.pos_y;
 	flood_fill(data, len, point);
-	//is_map_playable(data, data->map);
+	is_map_playable(data, data->map);
 	free(len);
 }

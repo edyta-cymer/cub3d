@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 20:27:50 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 21:57:38 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 18:29:52 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	validate_data(t_data *data, char *line, int fd)
 		else if (i <= 3)
 		{
 			check_file = open(data->txr[i].path, O_RDONLY);
-			printf("%s\n", data->txr[i].path);
 			if (check_file == -1)
 				return (clean_up(data, fd), free(line), error(NULL, 1));
 			close(check_file);

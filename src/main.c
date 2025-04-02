@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 20:54:38 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 20:52:37 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 int	game_loop(void *data)
 {
 	t_data	*game_data;
+	t_vector2 point1;
+
+	point1.x = 10;
+	point1.y = 10;
 
 	game_data = (t_data *)data;
 	manage_keys(game_data);
@@ -24,9 +28,11 @@ int	game_loop(void *data)
 		&game_data->img.bits_per_pixel, \
 		&game_data->img.line_length, &game_data->img.endian);
 	cast_rays(game_data);
+	draw_square(data, point1, 0x7AA4CB9A, 100);
 	mlx_clear_window(game_data->mlx, game_data->window);
 	mlx_put_image_to_window(game_data->mlx, \
 	game_data->window, game_data->img.img, 0, 0);
+
 	return (0);
 }
 

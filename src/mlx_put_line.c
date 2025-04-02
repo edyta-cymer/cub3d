@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 23:03:04 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/02 19:41:16 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	get_txr_color(t_bresenham *b, t_ray ray, t_data *data, t_vector2 point1)
 	}
 }
 
-void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
+void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 	t_ray ray)
 {
 	t_bresenham		b;
@@ -62,6 +62,25 @@ void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, \
 		{
 			b.error += b.delta.x;
 			b.y_screen += b.sign.y;
+		}
+	}
+}
+
+void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr)
+{
+	t_bresenham		b;
+
+	init_bresenham(&b, point1, point2);
+	while (1)
+	{
+		my_mlx_pixel_put(&data->img, point1.x, point1.y, clr);
+		if (point1.y == point2.y)
+			break ;
+		b.error2 = b.error * 2;
+		if (b.error2 < b.delta.x)
+		{
+			b.error += b.delta.x;
+			point1.y += b.sign.y;
 		}
 	}
 }
