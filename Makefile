@@ -8,7 +8,7 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 CC          = cc
 MINILIBX	= minilibx-linux
 CFLAGS      = -Wall -Werror -Wextra -I include -I $(MINILIBX)
-LDFLAGS     = -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lX11 -lXext -lbsd -lm
+LDFLAGS     = -L$(MINILIBX) -lmlx_Linux -L/usr/lib -lX11 -lXext -lXfixes -lbsd -lm
 RM          = rm -f
 
 # Colors

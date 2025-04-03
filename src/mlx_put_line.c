@@ -47,7 +47,7 @@ void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 
 	b.line_height = WIN_H / ray.wallDist;
 	init_bresenham(&b, point1, point2);
-	b.y_screen = point1.y;
+	b.y_screen = (point1.y > 0) * point1.y;
 	b.color2 = ray.color;
 	b.texture_id = 0;
 	b.texture_id = check_texture_id(&ray, b.texture_id);
@@ -55,7 +55,7 @@ void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 	{
 		get_txr_color(&b, ray, data, point1);
 		my_mlx_pixel_put(&data->img, point1.x, b.y_screen, b.color2);
-		if (b.y_screen == point2.y)
+		if (b.y_screen == point2.y || b.y_screen == WIN_H)
 			break ;
 		b.error2 = b.error * 2;
 		if (b.error2 < b.delta.x)
@@ -71,6 +71,10 @@ void	mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr)
 	t_bresenham		b;
 
 	init_bresenham(&b, point1, point2);
+	if (point1.y <= 0 && point2.y <= 0)
+		return ;
+	if (point1.y >= WIN_H && point2.y >= WIN_H)
+		return ;
 	while (1)
 	{
 		my_mlx_pixel_put(&data->img, point1.x, point1.y, clr);

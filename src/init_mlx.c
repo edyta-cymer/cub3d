@@ -43,16 +43,17 @@ int	check_texture_id(t_ray *ray, int texture_id)
 	}
 	else
 	{
-		if (ray->side < 0)
-			texture_id = 1;
-		else
+		if (ray->ray_dir_y < 0)
 			texture_id = 0;
+		else
+			texture_id = 1;
 	}
 	return (texture_id);
 }
 
 void	ft_init_mlx(t_data *data)
 {
+	data->window = NULL;
 	data->window = mlx_new_window(data->mlx, WIN_W, WIN_H, "pawel Jumper");
 	if (!data->window)
 		return (clean_up(data, -1), error("Problem with mlx_new_window", 0));
@@ -63,4 +64,9 @@ void	ft_init_mlx(t_data *data)
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	if (!data->img.addr)
 		return (clean_up(data, -1), error("Problem with mlx_get_data_adr", 0));
+	data->last_frame = get_time();
+	data->frameTime = 0;
+	data->mouse = 0;
+	mlx_mouse_hide(data->mlx, data->window);
+	mlx_mouse_move(data->mlx, data->window, WIN_W / 2, WIN_H / 2);
 }

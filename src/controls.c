@@ -14,17 +14,20 @@
 
 void	manage_d_a_keys(t_data *data, float dir_x, float dir_y)
 {
-	if (data->keys.d)
+	double	rotate_speed;
+
+	rotate_speed = data->frameTime * 3.0;
+	if (data->keys.d || data->mouse == 1)
 	{
-		data->player.orientation += degree_to_radian(1) * 0.5;
+		data->player.orientation += rotate_speed;
 		if (data->player.orientation > 2 * M_PI)
 			data->player.orientation -= 2 * M_PI;
 		data->player.plane_x = -0.66 * dir_y;
 		data->player.plane_y = 0.66 * dir_x;
 	}
-	if (data->keys.a)
+	if (data->keys.a || data->mouse == -1)
 	{
-		data->player.orientation -= degree_to_radian(1) * 0.5;
+		data->player.orientation -= rotate_speed;
 		if (data->player.orientation < 0)
 			data->player.orientation += 2 * M_PI;
 		data->player.plane_x = -0.66 * dir_y;
@@ -34,22 +37,25 @@ void	manage_d_a_keys(t_data *data, float dir_x, float dir_y)
 
 void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 {
+	double move_speed;
+
+	move_speed = data->frameTime * 5.0;
 	if (data->keys.w)
 	{
-		if (data->map[(int)(data->player.pos_y + dir_y * 0.3)] \
-		[(int)(data->player.pos_x + dir_x * 0.3)] != '1')
+		if (data->map[(int)(data->player.pos_y + dir_y * move_speed * 4)] \
+		[(int)(data->player.pos_x + dir_x * move_speed * 4)] != '1')
 		{
-			data->player.pos_x += dir_x * 0.01;
-			data->player.pos_y += dir_y * 0.01;
+			data->player.pos_x += dir_x * move_speed;
+			data->player.pos_y += dir_y * move_speed;
 		}
 	}
 	if (data->keys.s)
 	{
-		if (data->map[(int)(data->player.pos_y - dir_y * 0.3)] \
-		[(int)(data->player.pos_x - dir_x * 0.3)] != '1')
+		if (data->map[(int)(data->player.pos_y - dir_y * move_speed * 4)] \
+		[(int)(data->player.pos_x - dir_x * move_speed * 4)] != '1')
 		{
-			data->player.pos_x -= dir_x * 0.01;
-			data->player.pos_y -= dir_y * 0.01;
+			data->player.pos_x -= dir_x * move_speed;
+			data->player.pos_y -= dir_y * move_speed;
 		}
 	}
 }
@@ -63,4 +69,19 @@ void	manage_keys(t_data *data)
 	dir_y = sin(data->player.orientation);
 	manage_d_a_keys(data, dir_x, dir_y);
 	manage_w_s_keys(data, dir_x, dir_y);
+}
+
+int	manage_mouse(int x, int y, void *data)
+{
+	t_data	*game_data;
+	(void)y;
+
+	game_data = (t_data *)data;
+	if (x > WIN_W / 2)
+		game_data->mouse = 1;
+	else if (x < WIN_W / 2)
+		game_data->mouse = -1;
+	else
+		game_data->mouse = 0;
+	return (0);
 }

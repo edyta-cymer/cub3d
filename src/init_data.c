@@ -34,6 +34,32 @@ int	file_opener(char *filepath)
 	return (fd);
 }
 
+void	init_torch(t_data *data)
+{
+	int		i;
+	char	*path;
+	char	*tmp;
+	char	*tmp2;
+
+	i = -1;
+	while (++i < 6)
+	{
+		tmp = ft_itoa(i);
+		path = ft_strjoin("./torch/frame", tmp);
+		free(tmp);
+		tmp2 = ft_strjoin(path, ".xpm");
+		free(path);
+		data->torch[i].txr_height = 64;
+		data->torch[i].txr_width = 64;
+		data->torch[i].img = mlx_xpm_file_to_image(data->mlx, \
+		tmp2, &data->torch[i].txr_width, &data->torch[i].txr_height);
+		data->torch[i].addr = mlx_get_data_addr(data->torch[i].img, \
+		&data->torch[i].bits_per_pixel, &data->torch[i].line_length, \
+		&data->torch[i].endian);
+		free(tmp2);
+	}
+}
+
 void	init_keys(t_data *data)
 {
 	data->keys.w = 0;
@@ -48,8 +74,10 @@ void	init_data(char *filepath, t_data *data)
 	char	*line;
 	char	**split_line;
 
+	data->current_anim = 0;
 	init_textures(data);
 	init_keys(data);
+	init_torch(data);
 	fd = file_opener(filepath);
 	line = get_next_line(fd);
 	while (line)

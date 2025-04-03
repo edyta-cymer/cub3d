@@ -48,13 +48,14 @@ void	draw_square(t_data *data, t_vector2 start_point, int color, int size)
 
 void	draw_map(t_data *data, t_vector2 start_point)
 {
-	int			saved_x;
+	t_vector2	saved_point;
 	int			size;
 	int			i;
 	int			j;
 
-	saved_x = start_point.x;
-	size = 150 / data->proportions;
+	saved_point.x = start_point.x;
+	saved_point.y = start_point.y;
+	size = 200 / data->proportions;
 	i = -1;
 	while (data->map[++i])
 	{
@@ -62,10 +63,13 @@ void	draw_map(t_data *data, t_vector2 start_point)
 		while (data->map[i][++j])
 		{
 			if (data->map[i][j] == '1')
-				draw_square(data, start_point, 0x7AA4CB9A, size);
+				draw_square(data, start_point, 0xffe600, size);
 			start_point.x += size;
 		}
-		start_point.x = saved_x;
+		start_point.x = saved_point.x;
 		start_point.y += size;
 	}
+	start_point.x = data->player.pos_x * size + saved_point.x;
+	start_point.y = data->player.pos_y * size + saved_point.y - 1;
+	draw_square(data, start_point, 0x00ff00, size / 2);
 }

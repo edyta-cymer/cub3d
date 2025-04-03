@@ -20,14 +20,19 @@
 # include <math.h>
 # include <mlx.h>
 # include <X11/keysym.h>
+# include <X11/extensions/Xfixes.h>
+# include <sys/time.h>
+# include <string.h>
+# include <errno.h>
 
 # ifndef M_PI
 #  define M_PI 3.141592653
 # endif
 
-# define WIN_H 600
+# define WIN_H 450
 # define WIN_W 800
 # define TILE_SIZE 64
+# define FPS 90
 
 typedef struct s_image
 {
@@ -36,6 +41,8 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		txr_width;
+	int		txr_height;
 }				t_image;
 
 typedef enum id_texture
@@ -88,9 +95,14 @@ typedef struct s_data
 	t_player	player;
 	t_keys		keys;
 	t_image		img;
+	t_image		torch[6];
 	void		*mlx;
 	void		*window;
 	int			proportions;
+	int			mouse;
+	size_t		last_frame;
+	double		frameTime;
+	int			current_anim;
 }	t_data;
 
 typedef struct s_bresenham
@@ -126,6 +138,7 @@ typedef struct s_ray
 
 void			error(char *message, int type);
 void			clean_up(t_data *data, int fd);
+size_t			get_time(void);
 
 int				ft_color_atoi(const char *nptr);
 int				rgb_to_decimal(t_data *data, t_texture id_txr);
@@ -146,7 +159,9 @@ void			mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 				t_ray ray);
 
 void			cast_rays(t_data *data);
-void			manage_keys(t_data *data);void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
+void			manage_keys(t_data *data);
+int				manage_mouse(int x, int y, void *data);
+void			my_mlx_pixel_put(t_image *data, int x, int y, int color);
 int				check_texture_id(t_ray *ray, int texture_id);
 unsigned int	get_pixel_color(t_image data, int x, int y);
 
@@ -159,4 +174,5 @@ void			count_ray_dir(t_ray *ray, t_data *data, float camera_x);
 void			mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr);
 void			draw_square(t_data *data, t_vector2 start_point, int color, int size);
 void			draw_map(t_data *data, t_vector2 start_point);
+
 #endif

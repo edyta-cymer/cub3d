@@ -39,6 +39,10 @@ void	clear_images(t_data *data)
 	while (++i <= 3)
 		if (data->txr[i].image.img != NULL)
 			mlx_destroy_image(data->mlx, data->txr[i].image.img);
+	i = -1;
+	while (++i < 6)
+		if (data->torch[i].img != NULL)
+			mlx_destroy_image(data->mlx, data->torch[i].img);
 }
 
 void	clean_up(t_data *data, int fd)
@@ -95,7 +99,7 @@ void	error(char *message, int type)
 	}
 	else
 	{
-		perror("Error\n");
+		printf("Error\n%s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 }

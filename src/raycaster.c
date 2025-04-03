@@ -16,8 +16,6 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 {
 	while (1)
 	{
-		if (data->map[maps_cords->y][maps_cords->x] == '1')
-			break ;
 		if (ray->sideDistX < ray->sideDistY)
 		{
 			maps_cords->x += ray->step_x;
@@ -30,6 +28,8 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 			ray->sideDistY += ray->del_dist_y;
 			ray->side = 1;
 		}
+		if (data->map[maps_cords->y][maps_cords->x] == '1')
+			break ;
 	}
 }
 
@@ -39,7 +39,7 @@ int	init_txr_x(t_data *data, t_ray ray, float wallX)
 
 	if (ray.side == 0)
 	{
-		if (ray.ray_dir_x < 0)
+		if (ray.ray_dir_x > 0)
 			texture_x = (wallX * data->txr[2].txr_width);
 		else
 		{
@@ -49,7 +49,7 @@ int	init_txr_x(t_data *data, t_ray ray, float wallX)
 	}
 	else
 	{
-		if (ray.ray_dir_y < 0)
+		if (ray.ray_dir_y > 0)
 		{
 			texture_x = (wallX * data->txr[1].txr_width);
 			texture_x = data->txr[1].txr_width - texture_x - 1;
