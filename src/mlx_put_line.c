@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_put_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/08 21:11:37 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:22:13 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	get_txr_color(t_bresenham *b, t_ray ray, t_data *data, t_vector2 point1)
 		data->txr[b->texture_id].txr_height / b->line_height;
 		b->color2 = get_pixel_color(data->txr[b->texture_id].image, \
 		ray.texture_x, ray.texture_y);
-		if (ray.side == 1)
-			b->color2 /= 2;
 	}
 }
 
