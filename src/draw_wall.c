@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:36:20 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 19:39:29 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 01:00:50 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,21 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 	t_vector2	start_wall;
 	t_vector2	end_wall;
 	int			line_height;
-
-	if (ray.side == 0)
-		ray.wallDist = ray.sideDistX - ray.del_dist_x;
+	
+	if (ray.door_hit)
+	{
+		if (ray.side == 0)
+			ray.wallDist = (ray.sideDistX - ray.del_dist_x / 2.0);
+		else
+			ray.wallDist = (ray.sideDistY - ray.del_dist_y / 2.0);
+	}
 	else
-		ray.wallDist = ray.sideDistY - ray.del_dist_y;
+	{
+		if (ray.side == 0)
+			ray.wallDist = ray.sideDistX - ray.del_dist_x;
+		else
+			ray.wallDist = ray.sideDistY - ray.del_dist_y;
+	}
 	line_height = WIN_H / ray.wallDist;
 	start_wall.y = WIN_H / 2 - line_height / 2;
 	start_wall.x = x;

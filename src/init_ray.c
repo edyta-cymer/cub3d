@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:45:08 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 22:00:19 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/08 23:31:19 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x)
 	count_ray_dir(ray, data, camera_x);
 	ray->step_x = (ray->ray_dir_x > 0) - (ray->ray_dir_x < 0);
 	ray->step_y = (ray->ray_dir_y > 0) - (ray->ray_dir_y < 0);
+	ray->door_hit = 0;
 	count_del_dist(ray);
 	count_sidedist(ray, data, maps_cords);
 }

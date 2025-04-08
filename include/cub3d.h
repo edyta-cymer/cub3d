@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/08 20:05:00 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/09 00:48:07 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ typedef struct s_ray
 	int		side;
 	float	wallDist;
 	int		color;
+	int		door_hit;
+	int		hit_door;
 	int		texture_x;
 	int		texture_y;
 }	t_ray;
