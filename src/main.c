@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 22:51:47 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/08 21:02:31 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,30 @@ size_t	get_time(void)
 	return ((tv.tv_sec * (size_t)1000) + (tv.tv_usec / 1000));
 }
 
+void	draw_torch(t_data *data)
+{
+	t_vector2	point;
+	t_vector2	point2;
+	float		x;
+
+	point.y = WIN_H - 1;
+	point.x = WIN_W / 3 * 2;
+	point2.y = WIN_H - (data->torch[data->current_anim].txr_height * 4) - 1;
+	point2.x = WIN_W / 3 * 2;
+	x = 0;
+	while (x <= (float)data->torch[data->current_anim].txr_width)
+	{
+		mlx_put_torch(data, point, point2);
+		x += 0.25;
+		point2.x++;
+		point.x++;
+	}
+}
+
 int	game_loop(void *data)
 {
-	t_data	*game_data;
-	t_vector2 point1;
+	t_data		*game_data;
+	t_vector2	point1;
 
 	game_data = (t_data *)data;
 	while(get_time() - game_data->last_frame < 1000 / FPS)
@@ -40,6 +60,7 @@ int	game_loop(void *data)
 		&game_data->img.line_length, &game_data->img.endian);
 	cast_rays(game_data);
 	draw_map(game_data, point1);
+	draw_torch(game_data);
 	mlx_clear_window(game_data->mlx, game_data->window);
 	mlx_put_image_to_window(game_data->mlx, \
 	game_data->window, game_data->img.img, 0, 0);
@@ -47,6 +68,9 @@ int	game_loop(void *data)
 	if (game_data->mouse != 0)
 		mlx_mouse_move(game_data->mlx, game_data->window, WIN_W / 2, WIN_H / 2);
 	game_data->mouse = 0;
+	game_data->current_anim++;
+	if (game_data->current_anim == 6)
+		game_data->current_anim = 0;
 	return (0);
 }
 

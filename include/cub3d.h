@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/03 17:57:37 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/08 20:05:00 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void			cast_rays(t_data *data);
 void			manage_keys(t_data *data);
 int				manage_mouse(int x, int y, void *data);
 void			my_mlx_pixel_put(t_image *data, int x, int y, int color);
+void			mlx_put_torch(t_data *data, t_vector2 point1, t_vector2 point2);
 int				check_texture_id(t_ray *ray, int texture_id);
 unsigned int	get_pixel_color(t_image data, int x, int y);
 

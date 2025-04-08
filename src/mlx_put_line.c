@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_put_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 19:41:16 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/08 21:11:37 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,44 @@ void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 		{
 			b.error += b.delta.x;
 			b.y_screen += b.sign.y;
+		}
+	}
+}
+
+int	get_torch_color(t_data *data, t_vector2 point1)
+{
+	int	color;
+
+	//printf("%d | %d\n", point1.x, point1.y);
+	color = get_pixel_color(data->torch[data->current_anim], point1.x, point1.y);
+	return (color);
+}
+
+void	mlx_put_torch(t_data *data, t_vector2 point1, t_vector2 point2)
+{
+	t_bresenham		b;
+	t_vector2		current_point;
+	int				color;
+	float			y;
+
+	init_bresenham(&b, point1, point2);
+	b.y_screen = (point1.y > 0) * point1.y;
+	current_point.x = (point1.x - WIN_W / 3 * 2) / 4;
+	y = 50;
+	while (1)
+	{
+		current_point.y = (int)y;
+		color = get_torch_color(data, current_point);
+		if (color > 0)
+			my_mlx_pixel_put(&data->img, point1.x, b.y_screen, color);
+		if (b.y_screen == point2.y || b.y_screen == WIN_H || y == 0)
+			break ;
+		b.error2 = b.error * 2;
+		if (b.error2 < b.delta.x)
+		{
+			b.error += b.delta.x;
+			b.y_screen += b.sign.y;
+			y -= 0.25;
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 21:32:49 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/08 20:15:02 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_init_mlx(t_data *data)
 	data->last_frame = get_time();
 	data->frameTime = 0;
 	data->mouse = 0;
+	data->current_anim = 0;
 	mlx_mouse_hide(data->mlx, data->window);
 	mlx_mouse_move(data->mlx, data->window, WIN_W / 2, WIN_H / 2);
 }
