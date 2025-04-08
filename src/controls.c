@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:05:23 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 20:20:07 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:52:59 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 	move_speed = data->frameTime * 5.0;
 	if (data->keys.w)
 	{
-		if (data->map[(int)(data->player.pos_y + dir_y * move_speed * 4)] \
-		[(int)(data->player.pos_x + dir_x * move_speed * 4)] != '1')
+		if (data->map[(int)(data->player.pos_y + dir_y * move_speed * 6)] \
+		[(int)(data->player.pos_x + dir_x * move_speed * 6)] != '1')
 		{
 			data->player.pos_x += dir_x * move_speed;
 			data->player.pos_y += dir_y * move_speed;
@@ -51,8 +51,8 @@ void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 	}
 	if (data->keys.s)
 	{
-		if (data->map[(int)(data->player.pos_y - dir_y * move_speed * 4)] \
-		[(int)(data->player.pos_x - dir_x * move_speed * 4)] != '1')
+		if (data->map[(int)(data->player.pos_y - dir_y * move_speed * 6)] \
+		[(int)(data->player.pos_x - dir_x * move_speed * 6)] != '1')
 		{
 			data->player.pos_x -= dir_x * move_speed;
 			data->player.pos_y -= dir_y * move_speed;
