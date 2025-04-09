@@ -35,9 +35,9 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 	if (ray.door_hit)
 	{
 		if (ray.side == 0)
-			ray.wallDist = (ray.sideDistX - ray.del_dist_x / 2.0);
+			ray.wallDist = (ray.sideDistX - ray.del_dist_x / 1.5);
 		else
-			ray.wallDist = (ray.sideDistY - ray.del_dist_y / 2.0);
+			ray.wallDist = (ray.sideDistY - ray.del_dist_y / 1.5);
 	}
 	else
 	{

@@ -42,8 +42,8 @@ void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 	move_speed = data->frameTime * 5.0;
 	if (data->keys.w)
 	{
-		if (data->map[(int)(data->player.pos_y + dir_y * move_speed * 6)] \
-		[(int)(data->player.pos_x + dir_x * move_speed * 6)] != '1')
+		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y + dir_y * \
+		move_speed * 6)][(int)(data->player.pos_x + dir_x * move_speed * 6)]))
 		{
 			data->player.pos_x += dir_x * move_speed;
 			data->player.pos_y += dir_y * move_speed;
@@ -51,8 +51,8 @@ void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 	}
 	if (data->keys.s)
 	{
-		if (data->map[(int)(data->player.pos_y - dir_y * move_speed * 6)] \
-		[(int)(data->player.pos_x - dir_x * move_speed * 6)] != '1')
+		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y - dir_y * \
+		move_speed * 6)][(int)(data->player.pos_x - dir_x * move_speed * 6)]))
 		{
 			data->player.pos_x -= dir_x * move_speed;
 			data->player.pos_y -= dir_y * move_speed;

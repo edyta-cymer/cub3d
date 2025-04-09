@@ -14,11 +14,11 @@
 
 void find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 {
-	ray->door_hit = 0;
-	ray->hit_door = 0;
-	t_vector2 door_coords = {-1, -1};
 	double door_dist = INFINITY;
+	t_vector2 steps;
 
+	steps.x = 0;
+	steps.y = 0;
 	while (1)
 	{
 		if (ray->sideDistX < ray->sideDistY)
@@ -26,34 +26,38 @@ void find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 			maps_cords->x += ray->step_x;
 			ray->sideDistX += ray->del_dist_x;
 			ray->side = 0;
+			steps.x++;
 		}
 		else
 		{
 			maps_cords->y += ray->step_y;
 			ray->sideDistY += ray->del_dist_y;
 			ray->side = 1;
+			steps.y++;
 		}
 		if (data->map[maps_cords->y][maps_cords->x] == '1')
 			break;
 		else if (data->map[maps_cords->y][maps_cords->x] == 'D' && !ray->door_hit)
 		{
+			steps.x = 0;
+			steps.y = 0;
 			ray->door_hit = 1;
-			door_coords = (t_vector2){maps_cords->x, maps_cords->y};
+			ray->door_side = ray->side;
 			if (ray->side == 0)
-				door_dist = ray->sideDistX - ray->del_dist_x / 2.0;
+				door_dist = ray->sideDistX - ray->del_dist_x / 1.5;
 			else
-				door_dist = ray->sideDistY - ray->del_dist_y / 2.0;
+				door_dist = ray->sideDistY - ray->del_dist_y / 1.5;
 		}
 	}
-	double wall_dist;
 	if (ray->side == 0)
-		wall_dist = ray->sideDistX - ray->del_dist_x;
+		ray->wallDist = ray->sideDistX - ray->del_dist_x;
 	else
-		wall_dist = ray->sideDistY - ray->del_dist_y;
-	if (ray->door_hit && door_dist < wall_dist)
+		ray->wallDist = ray->sideDistY - ray->del_dist_y;
+	if (ray->door_hit && door_dist < ray->wallDist)
 	{
-		ray->sideDistY -= ray->del_dist_y * 2;
-		ray->hit_door = 1;
+		ray->sideDistY -= ray->del_dist_y * steps.y;
+		ray->sideDistX -= ray->del_dist_x * steps.x;
+		ray->side = ray->door_side;
 	}
 	else
 		ray->door_hit = 0;

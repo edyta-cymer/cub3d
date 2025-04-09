@@ -88,6 +88,12 @@ typedef struct s_vector2
 	int	y;
 }				t_vector2;
 
+typedef	struct s_door
+{
+	t_vector2	coords;
+	size_t		opened;
+}	t_door;
+
 typedef struct s_data
 {
 	t_textures	txr[6];
@@ -103,6 +109,7 @@ typedef struct s_data
 	size_t		last_frame;
 	double		frameTime;
 	int			current_anim;
+	t_door		opened_doors[64];
 }	t_data;
 
 typedef struct s_bresenham
@@ -132,11 +139,10 @@ typedef struct s_ray
 	float	wallDist;
 	int		color;
 	int		door_hit;
-	int		hit_door;
+	int		door_side;
 	int		texture_x;
 	int		texture_y;
 }	t_ray;
-
 
 void			error(char *message, int type);
 void			clean_up(t_data *data, int fd);

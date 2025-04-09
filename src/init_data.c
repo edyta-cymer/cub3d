@@ -68,6 +68,19 @@ void	init_keys(t_data *data)
 	data->keys.d = 0;
 }
 
+void	init_doors(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 64)
+	{
+		data->opened_doors[i].coords.x = -1;
+		data->opened_doors[i].coords.y = -1;
+		data->opened_doors[i].opened = 0;
+	}
+}
+
 void	init_data(char *filepath, t_data *data)
 {
 	int		fd;
@@ -78,6 +91,7 @@ void	init_data(char *filepath, t_data *data)
 	init_textures(data);
 	init_keys(data);
 	init_torch(data);
+	init_doors(data);
 	fd = file_opener(filepath);
 	line = get_next_line(fd);
 	while (line)
