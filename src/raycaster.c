@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 01:25:24 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:12:44 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int	init_txr_x(t_data *data, t_ray ray, float wallX)
 {
 	int		texture_x;
 
-	if (ray.side == 0)
+	if (ray.door_hit)
+	{
+		texture_x = (wallX * data->door.txr_width);
+	}
+	else if (ray.side == 0)
 	{
 		if (ray.ray_dir_x > 0)
 			texture_x = (wallX * data->txr[2].txr_width);

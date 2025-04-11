@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 00:48:07 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:39:48 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 	t_player	player;
 	t_keys		keys;
 	t_image		img;
+	t_image		door;
 	t_image		torch[6];
 	void		*mlx;
 	void		*window;

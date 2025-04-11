@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_put_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/08 21:22:13 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 18:00:31 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,18 @@ static void	init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2)
 
 void	get_txr_color(t_bresenham *b, t_ray ray, t_data *data, t_vector2 point1)
 {
-	if (ray.color == -1)
+	if (ray.color == -1 && b->texture_id < 4)
 	{
 		ray.texture_y = (b->y_screen - point1.y) * \
 		data->txr[b->texture_id].txr_height / b->line_height;
 		b->color2 = get_pixel_color(data->txr[b->texture_id].image, \
 		ray.texture_x, ray.texture_y);
+	}
+	else if (b->texture_id == 4)
+	{
+		ray.texture_y = (b->y_screen - point1.y) * \
+		data->door.txr_height / b->line_height;
+		b->color2 = get_pixel_color(data->door, ray.texture_x, ray.texture_y);
 	}
 }
 
@@ -68,7 +74,6 @@ int	get_torch_color(t_data *data, t_vector2 point1)
 {
 	int	color;
 
-	//printf("%d | %d\n", point1.x, point1.y);
 	color = get_pixel_color(data->torch[data->current_anim], point1.x, point1.y);
 	return (color);
 }

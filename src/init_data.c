@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 22:48:10 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:50:59 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	init_doors(t_data *data)
 		data->opened_doors[i].coords.y = -1;
 		data->opened_doors[i].opened = 0;
 	}
+	data->door.img = mlx_xpm_file_to_image(data->mlx, \
+	"./textures/door01.xpm", &data->door.txr_width, &data->door.txr_height);
+	data->door.addr = mlx_get_data_addr(data->door.img, \
+	&data->door.bits_per_pixel, &data->door.line_length, \
+	&data->door.endian);
 }
 
 void	init_data(char *filepath, t_data *data)

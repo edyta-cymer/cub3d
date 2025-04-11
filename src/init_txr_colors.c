@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_txr_colors.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 20:22:13 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 21:08:57 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 17:51:40 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_textures(t_data *data)
 	data->map = NULL;
 	data->window = NULL;
 	data->img.img = NULL;
+	data->door.img = NULL;
 	while (++i <= 5)
 	{
 		data->txr[i].path = NULL;

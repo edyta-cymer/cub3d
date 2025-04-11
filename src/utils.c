@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:47:03 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 22:09:16 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 18:04:43 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	clear_images(t_data *data)
 	while (++i < 6)
 		if (data->torch[i].img != NULL)
 			mlx_destroy_image(data->mlx, data->torch[i].img);
+	if (data->door.img)
+		mlx_destroy_image(data->mlx, data->door.img);
 }
 
 void	clean_up(t_data *data, int fd)
@@ -103,4 +105,3 @@ void	error(char *message, int type)
 		exit(EXIT_FAILURE);
 	}
 }
-

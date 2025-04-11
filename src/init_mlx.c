@@ -6,7 +6,7 @@
 /*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/08 20:15:02 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:55:08 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ unsigned int	get_pixel_color(t_image data, int x, int y)
 
 int	check_texture_id(t_ray *ray, int texture_id)
 {
-	if (ray->side == 0)
+	if (ray->door_hit)
+		texture_id = 4;
+	else if (ray->side == 0)
 	{
 		if (ray->ray_dir_x < 0)
 			texture_id = 2;

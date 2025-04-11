@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:27:14 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/02 22:52:46 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/09 18:09:49 by kkonarze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	draw_map(t_data *data, t_vector2 start_point)
 		{
 			if (data->map[i][j] == '1')
 				draw_square(data, start_point, 0xffe600, size);
+			else if (data->map[i][j] == 'D')
+				draw_square(data, start_point, 0xff0000, size);
 			start_point.x += size;
 		}
 		start_point.x = saved_point.x;
