@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 18:54:21 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:25:01 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_keys(t_data *data)
 	data->keys.d = 0;
 	data->keys.l = 0;
 	data->keys.r = 0;
+	data->keys.ctrl = 0;
 }
 
 void	init_doors(t_data *data)

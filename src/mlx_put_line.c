@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/11 20:16:34 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:11:18 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 {
 	t_bresenham		b;
 
-	b.line_height = WIN_H / ray.wallDist;
+	b.line_height = WIN_H / ray.wall_dist;
 	init_bresenham(&b, point1, point2);
 	b.y_screen = (point1.y > 0) * point1.y;
 	b.color2 = ray.color;

@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 18:06:28 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:05:43 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_init_mlx(t_data *data)
 	if (!data->img.addr)
 		return (clean_up(data, -1), error("Problem with mlx_get_data_adr", 0));
 	data->last_frame = get_time();
-	data->frameTime = 0;
+	data->frame_time = 0;
 	data->mouse = 0;
 	data->current_anim = 0;
 	mlx_mouse_hide(data->mlx, data->window);

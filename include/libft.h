@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 13:36:10 by kkonarze          #+#    #+#             */
-/*   Updated: 2025/04/11 20:21:59 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:10:36 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,5 @@ int		ft_putnbr_base(unsigned int nbr, char *base);
 int		ft_putptr(uintptr_t nbr);
 int		get_len(uintptr_t nbr, int nbr2, int div);
 int		print_width(ssize_t width, int type);
-
 
 #endif

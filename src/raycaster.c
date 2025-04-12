@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 18:18:52 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:11:40 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	check_door(t_ray *ray, t_vector2 steps, double door_dist)
 {
 	if (ray->side == 0)
-		ray->wallDist = ray->sideDistX - ray->del_dist_x;
+		ray->wall_dist = ray->side_dist_x - ray->del_dist_x;
 	else
-		ray->wallDist = ray->sideDistY - ray->del_dist_y;
-	if (ray->door_hit && door_dist < ray->wallDist)
+		ray->wall_dist = ray->side_dist_y - ray->del_dist_y;
+	if (ray->door_hit && door_dist < ray->wall_dist)
 	{
-		ray->sideDistY -= ray->del_dist_y * steps.y;
-		ray->sideDistX -= ray->del_dist_x * steps.x;
+		ray->side_dist_y -= ray->del_dist_y * steps.y;
+		ray->side_dist_x -= ray->del_dist_x * steps.x;
 		ray->side = ray->door_side;
 	}
 	else
@@ -30,17 +30,17 @@ void	check_door(t_ray *ray, t_vector2 steps, double door_dist)
 
 void	check_next_block(t_ray *ray, t_vector2 *maps_cords, t_vector2 *steps)
 {
-	if (ray->sideDistX < ray->sideDistY)
+	if (ray->side_dist_x < ray->side_dist_y)
 	{
 		maps_cords->x += ray->step_x;
-		ray->sideDistX += ray->del_dist_x;
+		ray->side_dist_x += ray->del_dist_x;
 		ray->side = 0;
 		steps->x++;
 	}
 	else
 	{
 		maps_cords->y += ray->step_y;
-		ray->sideDistY += ray->del_dist_y;
+		ray->side_dist_y += ray->del_dist_y;
 		ray->side = 1;
 		steps->y++;
 	}
@@ -67,9 +67,9 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 			ray->door_hit = 1;
 			ray->door_side = ray->side;
 			if (ray->side == 0)
-				door_dist = ray->sideDistX - ray->del_dist_x / 1.5;
+				door_dist = ray->side_dist_x - ray->del_dist_x / 1.5;
 			else
-				door_dist = ray->sideDistY - ray->del_dist_y / 1.5;
+				door_dist = ray->side_dist_y - ray->del_dist_y / 1.5;
 		}
 	}
 	check_door(ray, steps, door_dist);

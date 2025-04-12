@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 19:04:22 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:24:39 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_keys
 	int	d;
 	int	l;
 	int	r;
+	int	ctrl;
 }				t_keys;
 
 typedef struct s_vector2
@@ -110,7 +111,7 @@ typedef struct s_data
 	int			proportions;
 	int			mouse;
 	size_t		last_frame;
-	double		frameTime;
+	double		frame_time;
 	int			current_anim;
 	t_door		opened_doors[64];
 }	t_data;
@@ -136,10 +137,10 @@ typedef struct s_ray
 	float	del_dist_y;
 	int		step_x;
 	int		step_y;
-	float	sideDistX;
-	float	sideDistY;
+	float	side_dist_x;
+	float	side_dist_y;
 	int		side;
-	float	wallDist;
+	float	wall_dist;
 	int		color;
 	int		door_hit;
 	int		door_side;

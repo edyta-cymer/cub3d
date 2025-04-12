@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:18:54 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 18:07:43 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:27:45 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	game_loop(void *data)
 	mlx_put_image_to_window(game_data->mlx, \
 	game_data->window, game_data->img.img, 0, 0);
 	game_data->last_frame = get_time();
-	if (game_data->mouse != 0)
+	if (game_data->mouse != 0 && !game_data->keys.ctrl)
 		mlx_mouse_move(game_data->mlx, game_data->window, WIN_W / 2, WIN_H / 2);
 	game_data->mouse = 0;
 	game_data->current_anim++;

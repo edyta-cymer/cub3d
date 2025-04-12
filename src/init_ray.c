@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:45:08 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/08 23:31:19 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:07:19 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	count_ray_dir(t_ray *ray, t_data *data, float camera_x)
 void	count_sidedist(t_ray *ray, t_data *data, t_vector2 maps_cords)
 {
 	if (ray->ray_dir_x < 0)
-		ray->sideDistX = (data->player.pos_x - maps_cords.x) * \
+		ray->side_dist_x = (data->player.pos_x - maps_cords.x) * \
 						ray->del_dist_x;
 	else
-		ray->sideDistX = (maps_cords.x + 1 - data->player.pos_x) * \
+		ray->side_dist_x = (maps_cords.x + 1 - data->player.pos_x) * \
 						ray->del_dist_x;
 	if (ray->ray_dir_y < 0)
-		ray->sideDistY = (data->player.pos_y - maps_cords.y) * \
+		ray->side_dist_y = (data->player.pos_y - maps_cords.y) * \
 						ray->del_dist_y;
 	else
-		ray->sideDistY = (maps_cords.y + 1 - data->player.pos_y) * \
+		ray->side_dist_y = (maps_cords.y + 1 - data->player.pos_y) * \
 		ray->del_dist_y;
 }
 

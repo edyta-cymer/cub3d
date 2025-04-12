@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:05:23 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 18:53:11 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:23:42 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	manage_d_a_keys(t_data *data, float dir_x, float dir_y)
 {
 	double	move_speed;
 
-	move_speed = data->frameTime * 3.0;
+	move_speed = data->frame_time * 3.0;
 	if (data->keys.a)
 	{
 		dir_x = cos(data->player.orientation - degree_to_radian(90));
@@ -45,24 +45,24 @@ void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 {
 	double	move_speed;
 
-	move_speed = data->frameTime * 5.0;
+	move_speed = data->frame_time * 5.0;
 	if (data->keys.w)
 	{
 		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y + dir_y * \
-		move_speed * 6)][(int)(data->player.pos_x + dir_x * move_speed * 6)]))
-		{
-			data->player.pos_x += dir_x * move_speed;
+			move_speed * 6)][(int)(data->player.pos_x)]))
 			data->player.pos_y += dir_y * move_speed;
-		}
+		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y)] \
+		[(int)(data->player.pos_x + dir_x * move_speed * 6)]))
+			data->player.pos_x += dir_x * move_speed;
 	}
 	if (data->keys.s)
 	{
 		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y - dir_y * \
-		move_speed * 6)][(int)(data->player.pos_x - dir_x * move_speed * 6)]))
-		{
-			data->player.pos_x -= dir_x * move_speed;
+			move_speed * 6)][(int)(data->player.pos_x)]))
 			data->player.pos_y -= dir_y * move_speed;
-		}
+		if (!ft_strchr("1D", data->map[(int)(data->player.pos_y)] \
+			[(int)(data->player.pos_x - dir_x * move_speed * 6)]))
+			data->player.pos_x -= dir_x * move_speed;
 	}
 }
 
@@ -70,7 +70,7 @@ void	manage_l_r_keys(t_data *data, float dir_x, float dir_y)
 {
 	double	rotate_speed;
 
-	rotate_speed = data->frameTime * 3.0;
+	rotate_speed = data->frame_time * 3.0;
 	if (data->keys.r || data->mouse == 1)
 	{
 		data->player.orientation += rotate_speed;
