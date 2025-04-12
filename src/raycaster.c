@@ -6,11 +6,45 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/11 19:37:42 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:18:52 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_door(t_ray *ray, t_vector2 steps, double door_dist)
+{
+	if (ray->side == 0)
+		ray->wallDist = ray->sideDistX - ray->del_dist_x;
+	else
+		ray->wallDist = ray->sideDistY - ray->del_dist_y;
+	if (ray->door_hit && door_dist < ray->wallDist)
+	{
+		ray->sideDistY -= ray->del_dist_y * steps.y;
+		ray->sideDistX -= ray->del_dist_x * steps.x;
+		ray->side = ray->door_side;
+	}
+	else
+		ray->door_hit = 0;
+}
+
+void	check_next_block(t_ray *ray, t_vector2 *maps_cords, t_vector2 *steps)
+{
+	if (ray->sideDistX < ray->sideDistY)
+	{
+		maps_cords->x += ray->step_x;
+		ray->sideDistX += ray->del_dist_x;
+		ray->side = 0;
+		steps->x++;
+	}
+	else
+	{
+		maps_cords->y += ray->step_y;
+		ray->sideDistY += ray->del_dist_y;
+		ray->side = 1;
+		steps->y++;
+	}
+}
 
 void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 {
@@ -22,20 +56,7 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 	steps.y = 0;
 	while (1)
 	{
-		if (ray->sideDistX < ray->sideDistY)
-		{
-			maps_cords->x += ray->step_x;
-			ray->sideDistX += ray->del_dist_x;
-			ray->side = 0;
-			steps.x++;
-		}
-		else
-		{
-			maps_cords->y += ray->step_y;
-			ray->sideDistY += ray->del_dist_y;
-			ray->side = 1;
-			steps.y++;
-		}
+		check_next_block(ray, maps_cords, &steps);
 		if (data->map[maps_cords->y][maps_cords->x] == '1')
 			break ;
 		else if (data->map[maps_cords->y][maps_cords->x] == 'D' \
@@ -51,18 +72,7 @@ void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 				door_dist = ray->sideDistY - ray->del_dist_y / 1.5;
 		}
 	}
-	if (ray->side == 0)
-		ray->wallDist = ray->sideDistX - ray->del_dist_x;
-	else
-		ray->wallDist = ray->sideDistY - ray->del_dist_y;
-	if (ray->door_hit && door_dist < ray->wallDist)
-	{
-		ray->sideDistY -= ray->del_dist_y * steps.y;
-		ray->sideDistX -= ray->del_dist_x * steps.x;
-		ray->side = ray->door_side;
-	}
-	else
-		ray->door_hit = 0;
+	check_door(ray, steps, door_dist);
 }
 
 int	init_txr_x(t_data *data, t_ray ray, float wallX)
@@ -70,9 +80,7 @@ int	init_txr_x(t_data *data, t_ray ray, float wallX)
 	int		texture_x;
 
 	if (ray.door_hit)
-	{
 		texture_x = (wallX * data->door.txr_width);
-	}
 	else if (ray.side == 0)
 	{
 		if (ray.ray_dir_x > 0)

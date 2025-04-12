@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:41:06 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 17:11:31 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:07:17 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,10 @@ void	open_doors(t_data *data)
 	t_vector2	point1;
 	int			i;
 
-	i = 0;
-	while (i < 64)
-	{
+	i = -1;
+	while (++i < 64)
 		if (data->opened_doors[i].coords.x == -1)
 			break ;
-		i++;
-	}
 	if (i == 64)
 		return ;
 	point1.x = (int)data->player.pos_x;

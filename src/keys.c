@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 17:15:38 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 17:17:38 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:47:18 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ int	on_press(int keyhook, void *param)
 		data->keys.s = 1;
 	if (keyhook == XK_d)
 		data->keys.d = 1;
+	if (keyhook == XK_Left)
+		data->keys.l = 1;
+	if (keyhook == XK_Right)
+		data->keys.r = 1;
 	if (keyhook == XK_Escape)
 	{
 		clean_up(data, -1);
@@ -48,5 +52,9 @@ int	on_release(int keyhook, void *param)
 		data->keys.s = 0;
 	if (keyhook == XK_d)
 		data->keys.d = 0;
+	if (keyhook == XK_Left)
+		data->keys.l = 0;
+	if (keyhook == XK_Right)
+		data->keys.r = 0;
 	return (0);
 }

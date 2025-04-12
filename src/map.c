@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:30 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/01 21:34:28 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:29:36 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	validate_chars(t_data *data, int fd, char *map_lines)
 			error("Too many players", 0));
 	}
 	if (j == 0)
-		return (clean_up(data, fd), free(map_lines), error("No players", 0));
+		return (clean_up(data, fd), free(map_lines), error("No players \
+			or no map", 0));
 }
 
 void	create_map(t_data *data, char *line, int fd)

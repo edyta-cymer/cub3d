@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 15:33:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 17:55:08 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:06:28 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,15 @@ void	ft_init_mlx(t_data *data)
 	data->current_anim = 0;
 	mlx_mouse_hide(data->mlx, data->window);
 	mlx_mouse_move(data->mlx, data->window, WIN_W / 2, WIN_H / 2);
+}
+
+void	handle_mlx(t_data *data)
+{
+	ft_init_mlx(data);
+	mlx_hook(data->window, 2, 1L << 0, on_press, data);
+	mlx_hook(data->window, 3, 1L << 1, on_release, data);
+	mlx_hook(data->window, 17, 0, close_window, data);
+	mlx_hook(data->window, 6, 1L << 6, manage_mouse, data);
+	mlx_loop_hook(data->mlx, &game_loop, data);
+	mlx_loop(data->mlx);
 }

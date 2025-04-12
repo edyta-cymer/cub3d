@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:48 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 19:04:22 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_keys
 	int	a;
 	int	s;
 	int	d;
+	int	l;
+	int	r;
 }				t_keys;
 
 typedef struct s_vector2
@@ -88,7 +90,7 @@ typedef struct s_vector2
 	int	y;
 }				t_vector2;
 
-typedef	struct s_door
+typedef struct s_door
 {
 	t_vector2	coords;
 	size_t		opened;
@@ -152,8 +154,10 @@ size_t			get_time(void);
 int				ft_color_atoi(const char *nptr);
 int				rgb_to_decimal(t_data *data, t_texture id_txr);
 void			init_data(char *filepath, t_data *data);
-void			ft_handle_colors(t_data *data, char **split_line, int fd, char *line);
-int				add_path(t_data *data, char **split_line, int fd, char *line);
+void			ft_handle_colors(t_data *data, char **split_line, \
+				int fd, char *line);
+int				add_path(t_data *data, char **split_line, int fd, \
+				char *line);
 void			init_textures(t_data *data);
 
 int				validate_map_format(char *str, char *ext);
@@ -179,14 +183,17 @@ void			draw_wall(t_data *data, t_ray ray, int x);
 void			draw_texture(t_data *data, t_ray ray, t_vector2 point1, \
 				t_vector2 point2);
 int				init_txr_x(t_data *data, t_ray ray, float wallX);
-void			init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, float camera_x);
-void			count_ray_dir(t_ray *ray, t_data *data, float camera_x);
-void			mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr);
-void			draw_square(t_data *data, t_vector2 start_point, int color, int size);
+void			init_ray(t_data *data, t_ray *ray, t_vector2 maps_cords, \
+				float camera_x);
+void			mlx_put_line(t_data *data, t_vector2 point1, \
+				t_vector2 point2, int clr);
+void			draw_square(t_data *data, t_vector2 start_point, \
+				int color, int size);
 void			draw_map(t_data *data, t_vector2 start_point);
 void			init_torch(t_data *data);
 void			mlx_put_torch(t_data *data, t_vector2 point1, t_vector2 point2);
-void			init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2);
+void			init_bresenham(t_bresenham *b, t_vector2 point1, \
+				t_vector2 point2);
 void			close_doors(t_data *data);
 void			open_doors(t_data *data);
 void			open_the_door(t_data *data, t_vector2 point1, int i);
@@ -194,14 +201,15 @@ void			draw_torch(t_data *data);
 size_t			get_time(void);
 int				get_torch_color(t_data *data, t_vector2 point1);
 void			init_torch(t_data *data);
-void	init_doors(t_data *data);
-int	on_press(int keyhook, void *param);
-int	on_release(int keyhook, void *param);
-int	close_window(void *param);
-int	*map_line_len(char **split_lines);
-void	check_dir(t_data *data, char c);
-void	count_frame_time(t_data *game_data, t_vector2 *point1);
-void	init_img_addr(t_data *game_data);
-void	handle_mlx(t_data *data);
+void			init_doors(t_data *data);
+int				on_press(int keyhook, void *param);
+int				on_release(int keyhook, void *param);
+int				close_window(void *param);
+int				*map_line_len(char **split_lines);
+void			check_dir(t_data *data, char c);
+void			count_frame_time(t_data *game_data, t_vector2 *point1);
+void			init_img_addr(t_data *game_data);
+void			handle_mlx(t_data *data);
+int				game_loop(void *data);
 
 #endif

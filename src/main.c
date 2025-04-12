@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:44:39 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 17:20:03 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:02:21 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	close_window(void *param)
 
 void	count_frame_time(t_data *game_data, t_vector2 *point1)
 {
-	while
-		(get_time() - game_data->last_frame < 1000 / FPS);
+	while (get_time() - game_data->last_frame < 1000 / FPS)
+		;
 	game_data->frameTime = (get_time() - game_data->last_frame) / 1000.0;
 	point1->x = 10;
 	point1->y = 10;

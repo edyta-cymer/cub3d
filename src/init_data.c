@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/11 19:38:49 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:54:21 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	validate_map_format(char *str, char *ext)
 	return (-1);
 }
 
-int	file_opener(char *filepath)
+int	file_opener(t_data *data, char *filepath)
 {
 	int	fd;
 
 	if (validate_map_format(filepath, ".cub") != 0)
-		error("Wrong file format", 0);
+		return (clean_up(data, -1), error("Wrong file format", 0), 1);
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 		error(NULL, 1);
@@ -40,6 +40,8 @@ void	init_keys(t_data *data)
 	data->keys.a = 0;
 	data->keys.s = 0;
 	data->keys.d = 0;
+	data->keys.l = 0;
+	data->keys.r = 0;
 }
 
 void	init_doors(t_data *data)
@@ -71,7 +73,7 @@ void	init_data(char *filepath, t_data *data)
 	init_keys(data);
 	init_torch(data);
 	init_doors(data);
-	fd = file_opener(filepath);
+	fd = file_opener(data, filepath);
 	line = get_next_line(fd);
 	while (line)
 	{

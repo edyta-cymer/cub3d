@@ -6,7 +6,7 @@
 /*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:27:14 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/12 17:37:30 by ecymer           ###   ########.fr       */
+/*   Updated: 2025/04/12 18:20:01 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ void	draw_square(t_data *data, t_vector2 start_point, int color, int size)
 	}
 }
 
+void	draw_player(t_data *data, t_vector2 start_point, int size, t_vector2 \
+					saved_point)
+{
+	start_point.x = data->player.pos_x * size + saved_point.x;
+	start_point.y = data->player.pos_y * size + saved_point.y - 1;
+	draw_square(data, start_point, 0x00ff00, size / 2);
+}
+
 void	draw_map(t_data *data, t_vector2 start_point)
 {
 	t_vector2	saved_point;
@@ -70,7 +78,5 @@ void	draw_map(t_data *data, t_vector2 start_point)
 		start_point.x = saved_point.x;
 		start_point.y += size;
 	}
-	start_point.x = data->player.pos_x * size + saved_point.x;
-	start_point.y = data->player.pos_y * size + saved_point.y - 1;
-	draw_square(data, start_point, 0x00ff00, size / 2);
+	draw_player(data, start_point, size, saved_point);
 }
