@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 19:43:16 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 17:50:59 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:38:49 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,6 @@ int	file_opener(char *filepath)
 	if (fd == -1)
 		error(NULL, 1);
 	return (fd);
-}
-
-void	init_torch(t_data *data)
-{
-	int		i;
-	char	*path;
-	char	*tmp;
-	char	*tmp2;
-
-	i = -1;
-	while (++i < 6)
-	{
-		tmp = ft_itoa(i);
-		path = ft_strjoin("./torch/frame", tmp);
-		free(tmp);
-		tmp2 = ft_strjoin(path, ".xpm");
-		free(path);
-		data->torch[i].txr_height = 64;
-		data->torch[i].txr_width = 64;
-		data->torch[i].img = mlx_xpm_file_to_image(data->mlx, \
-		tmp2, &data->torch[i].txr_width, &data->torch[i].txr_height);
-		data->torch[i].addr = mlx_get_data_addr(data->torch[i].img, \
-		&data->torch[i].bits_per_pixel, &data->torch[i].line_length, \
-		&data->torch[i].endian);
-		free(tmp2);
-	}
 }
 
 void	init_keys(t_data *data)

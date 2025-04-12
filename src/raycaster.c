@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:34 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 18:12:44 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:37:42 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
+void	find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 {
-	double door_dist = INFINITY;
-	t_vector2 steps;
+	double		door_dist;
+	t_vector2	steps;
 
+	door_dist = INFINITY;
 	steps.x = 0;
 	steps.y = 0;
 	while (1)
@@ -36,8 +37,9 @@ void find_wall(t_data *data, t_ray *ray, t_vector2 *maps_cords)
 			steps.y++;
 		}
 		if (data->map[maps_cords->y][maps_cords->x] == '1')
-			break;
-		else if (data->map[maps_cords->y][maps_cords->x] == 'D' && !ray->door_hit)
+			break ;
+		else if (data->map[maps_cords->y][maps_cords->x] == 'D' \
+		&& !ray->door_hit)
 		{
 			steps.x = 0;
 			steps.y = 0;

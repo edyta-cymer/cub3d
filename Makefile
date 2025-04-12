@@ -21,7 +21,7 @@ CYAN        = \033[0;96m
 
 # Sources
 
-SRC_FILES   = init_data.c init_txr_colors.c utils.c validate.c map.c draw_wall.c cub_math.c flood_fill.c init_mlx.c mlx_put_line.c init_ray.c raycaster.c controls.c minimap.c main.c
+SRC_FILES   = init_data.c init_txr_colors.c utils.c validate.c map.c draw_wall.c flood_fill.c init_mlx.c mlx_put_line.c init_ray.c raycaster.c controls.c flood_fill_utils.c game_loop.c minimap.c torch.c utils_two.c keys.c main.c
 SRC         = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJ         = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:05:23 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/03 17:52:59 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/11 19:23:55 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	manage_d_a_keys(t_data *data, float dir_x, float dir_y)
 
 void	manage_w_s_keys(t_data *data, float dir_x, float dir_y)
 {
-	double move_speed;
+	double	move_speed;
 
 	move_speed = data->frameTime * 5.0;
 	if (data->keys.w)
@@ -74,8 +74,8 @@ void	manage_keys(t_data *data)
 int	manage_mouse(int x, int y, void *data)
 {
 	t_data	*game_data;
-	(void)y;
 
+	(void)y;
 	game_data = (t_data *)data;
 	if (x > WIN_W / 2)
 		game_data->mouse = 1;

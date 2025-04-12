@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 19:27:14 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 18:09:49 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:37:30 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	calc_proportions(t_data *data)
 void	draw_square(t_data *data, t_vector2 start_point, int color, int size)
 {
 	t_vector2	end_point;
-	int	i;
+	int			i;
 
 	i = -1;
-	
 	end_point.y = start_point.y + size;
 	end_point.x = start_point.x;
 	while (++i < size)

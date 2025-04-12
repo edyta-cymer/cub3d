@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:44:40 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 17:39:48 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/12 17:24:48 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,24 @@ void			count_ray_dir(t_ray *ray, t_data *data, float camera_x);
 void			mlx_put_line(t_data *data, t_vector2 point1, t_vector2 point2, int clr);
 void			draw_square(t_data *data, t_vector2 start_point, int color, int size);
 void			draw_map(t_data *data, t_vector2 start_point);
+void			init_torch(t_data *data);
+void			mlx_put_torch(t_data *data, t_vector2 point1, t_vector2 point2);
+void			init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2);
+void			close_doors(t_data *data);
+void			open_doors(t_data *data);
+void			open_the_door(t_data *data, t_vector2 point1, int i);
+void			draw_torch(t_data *data);
+size_t			get_time(void);
+int				get_torch_color(t_data *data, t_vector2 point1);
+void			init_torch(t_data *data);
+void	init_doors(t_data *data);
+int	on_press(int keyhook, void *param);
+int	on_release(int keyhook, void *param);
+int	close_window(void *param);
+int	*map_line_len(char **split_lines);
+void	check_dir(t_data *data, char c);
+void	count_frame_time(t_data *game_data, t_vector2 *point1);
+void	init_img_addr(t_data *game_data);
+void	handle_mlx(t_data *data);
 
 #endif

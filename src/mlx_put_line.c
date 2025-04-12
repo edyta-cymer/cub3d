@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_put_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:13:00 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 18:00:31 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:16:34 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2)
+void	init_bresenham(t_bresenham *b, t_vector2 point1, t_vector2 point2)
 {
 	b->delta.x = abs(point2.x - point1.x);
 	b->delta.y = abs(point2.y - point1.y);
@@ -66,43 +66,6 @@ void	mlx_put_txr(t_data *data, t_vector2 point1, t_vector2 point2, \
 		{
 			b.error += b.delta.x;
 			b.y_screen += b.sign.y;
-		}
-	}
-}
-
-int	get_torch_color(t_data *data, t_vector2 point1)
-{
-	int	color;
-
-	color = get_pixel_color(data->torch[data->current_anim], point1.x, point1.y);
-	return (color);
-}
-
-void	mlx_put_torch(t_data *data, t_vector2 point1, t_vector2 point2)
-{
-	t_bresenham		b;
-	t_vector2		current_point;
-	int				color;
-	float			y;
-
-	init_bresenham(&b, point1, point2);
-	b.y_screen = (point1.y > 0) * point1.y;
-	current_point.x = (point1.x - WIN_W / 3 * 2) / 4;
-	y = 50;
-	while (1)
-	{
-		current_point.y = (int)y;
-		color = get_torch_color(data, current_point);
-		if (color > 0)
-			my_mlx_pixel_put(&data->img, point1.x, b.y_screen, color);
-		if (b.y_screen == point2.y || b.y_screen == WIN_H || y == 0)
-			break ;
-		b.error2 = b.error * 2;
-		if (b.error2 < b.delta.x)
-		{
-			b.error += b.delta.x;
-			b.y_screen += b.sign.y;
-			y -= 0.25;
 		}
 	}
 }

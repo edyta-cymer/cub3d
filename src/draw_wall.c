@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkonarze <kkonarze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecymer <ecymer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 21:36:20 by ecymer            #+#    #+#             */
-/*   Updated: 2025/04/09 01:00:50 by kkonarze         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:32:44 by ecymer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@ void	draw_texture(t_data *data, t_ray ray, t_vector2 point1, \
 	mlx_put_txr(data, point1, point2, ray);
 }
 
-void	draw_wall(t_data *data, t_ray ray, int x)
+float	count_wall_dist(t_ray ray)
 {
-	t_vector2	start_wall;
-	t_vector2	end_wall;
-	int			line_height;
-	
 	if (ray.door_hit)
 	{
 		if (ray.side == 0)
@@ -46,6 +42,16 @@ void	draw_wall(t_data *data, t_ray ray, int x)
 		else
 			ray.wallDist = ray.sideDistY - ray.del_dist_y;
 	}
+	return (ray.wallDist);
+}
+
+void	draw_wall(t_data *data, t_ray ray, int x)
+{
+	t_vector2	start_wall;
+	t_vector2	end_wall;
+	int			line_height;
+
+	ray.wallDist = count_wall_dist(ray);
 	line_height = WIN_H / ray.wallDist;
 	start_wall.y = WIN_H / 2 - line_height / 2;
 	start_wall.x = x;
